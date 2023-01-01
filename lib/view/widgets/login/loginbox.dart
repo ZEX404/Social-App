@@ -1,5 +1,5 @@
-import 'package:ecommerce_app/core/functions/validinput.dart';
 import 'package:flutter/material.dart';
+import 'package:motion_toast/motion_toast.dart';
 import '../../../controller/auth/logincontroller.dart';
 import '../../../core/constants/colors.dart';
 import 'package:get/get.dart';
@@ -11,9 +11,14 @@ final focus = FocusNode();
 
 bool isLoading = false;
 
-class LoginBox extends StatelessWidget {
+class LoginBox extends StatefulWidget {
   const LoginBox({super.key});
 
+  @override
+  State<LoginBox> createState() => _LoginBoxState();
+}
+
+class _LoginBoxState extends State<LoginBox> {
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
@@ -67,13 +72,9 @@ class LoginBox extends StatelessWidget {
                           color: Colors.transparent.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(8)),
                       child: TextFormField(
-                        validator: (val) {
-                          if (validInput(val!, 5, 100, 'email') != null) {
-                            print(
-                                "error in email ${validInput(val, 5, 100, 'email')}");
-                          }
-                          return null;
-                        },
+                        // validator: (val) {
+                        //   return validInput(val!, 5, 100, 'email');
+                        // },
                         controller: controller.email,
                         style: const TextStyle(
                           fontFamily: 'Cairo',
@@ -123,48 +124,48 @@ class LoginBox extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: Colors.transparent.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(8)),
-                      child: TextFormField(
-                        validator: (val) {
-                          if (validInput(val!, 6, 30, 'password') != null) {
-                            print(
-                                "error in password ${validInput(val, 6, 30, 'password')}");
-                          }
-                          return null;
-                        },
-                        controller: controller.password,
-                        focusNode: focus,
-                        textAlign: TextAlign.start,
-                        textInputAction: TextInputAction.done,
-                        keyboardType: TextInputType.visiblePassword,
-                        decoration: InputDecoration(
-                          errorStyle: const TextStyle(
-                            fontFamily: 'Cairo',
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: const BorderSide(
-                              width: 2,
-                              color: AppColors.kTextColor,
+                      child: GetBuilder<LoginControllerImp>(
+                        builder: (controller) => TextFormField(
+                          controller: controller.password,
+                          focusNode: focus,
+                          textAlign: TextAlign.start,
+                          textInputAction: TextInputAction.done,
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: controller.isObscure,
+                          decoration: InputDecoration(
+                            errorStyle: const TextStyle(
+                              fontFamily: 'Cairo',
                             ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide:
-                                const BorderSide(color: Colors.transparent),
-                          ),
-                          prefixIcon: const Icon(Icons.password),
-                          suffixIcon: IconButton(
-                            color: Colors.white,
-                            splashColor: Colors.teal,
-                            highlightColor: Colors.transparent,
-                            splashRadius: 20,
-                            icon: const Icon(Icons.visibility_off),
-                            onPressed: () {},
-                          ),
-                          border: InputBorder.none,
-                          hintText: "Password".tr,
-                          hintStyle: const TextStyle(
-                            fontFamily: 'Cairo',
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(
+                                width: 2,
+                                color: AppColors.kTextColor,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide:
+                                  const BorderSide(color: Colors.transparent),
+                            ),
+                            prefixIcon: const Icon(Icons.password),
+                            suffixIcon: IconButton(
+                              color: Colors.white,
+                              splashColor: Colors.teal,
+                              highlightColor: Colors.transparent,
+                              splashRadius: 20,
+                              icon: controller.isObscure == true
+                                  ? const Icon(Icons.visibility_off)
+                                  : const Icon(Icons.visibility),
+                              onPressed: () {
+                                controller.showPassword();
+                              },
+                            ),
+                            border: InputBorder.none,
+                            hintText: "Password".tr,
+                            hintStyle: const TextStyle(
+                              fontFamily: 'Cairo',
+                            ),
                           ),
                         ),
                       ),
@@ -174,7 +175,25 @@ class LoginBox extends StatelessWidget {
                   Center(
                     child: ElevatedButton(
                       onPressed: () {
-                        controller.login();
+                        if (isLoading == false) {
+                          if (controller.email.text.isEmpty) {
+                            _displayErrorToast(
+                                context, 'Email can\'t be empty'.tr);
+                          } else if (controller.password.text.isEmpty) {
+                            _displayErrorToast(
+                                context, 'Password can\'t be empty'.tr);
+                          } else if (!controller.email.text.isEmail) {
+                            _displayErrorToast(
+                                context, 'Email is not valid'.tr);
+                          } else if (controller.password.text.length < 6) {
+                            _displayErrorToast(
+                                context, 'Password is not valid'.tr);
+                          } else {
+                            setState(() {
+                              isLoading = true;
+                            });
+                          }
+                        }
                       },
                       style: ButtonStyle(
                         alignment: Alignment.center,
@@ -213,5 +232,27 @@ class LoginBox extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _displayErrorToast(context, text) {
+    MotionToast.error(
+      title: Text(
+        "Error".tr,
+        style: const TextStyle(
+          fontSize: 18,
+          color: Colors.red,
+          fontFamily: 'Cairo',
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      description: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 16,
+          fontFamily: 'Cairo',
+          color: Colors.black,
+        ),
+      ),
+    ).show(context);
   }
 }

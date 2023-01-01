@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 abstract class LoginController extends GetxController {
@@ -11,15 +11,15 @@ class LoginControllerImp extends LoginController {
 
   GlobalKey<FormState> formstate = GlobalKey<FormState>();
 
-  @override
-  login() {
-    var formData = formstate.currentState;
-    if (formData!.validate()) {
-      print("Valid");
-    } else {
-      print("Not Valid");
-    }
+  bool isObscure = true;
+
+  showPassword() {
+    isObscure = isObscure == true ? isObscure = false : true;
+    update();
   }
+
+  @override
+  login() {}
 
   @override
   void onInit() {

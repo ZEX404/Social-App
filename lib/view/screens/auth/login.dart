@@ -4,6 +4,8 @@ import 'package:ecommerce_app/view/widgets/login/loginbox.dart';
 import 'package:ecommerce_app/view/widgets/login/topcontainer.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/functions/alertexitapp.dart';
+
 late double height;
 late double width;
 
@@ -15,18 +17,21 @@ class Login extends StatelessWidget {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                TopContainer(),
-                LoginBox(),
-                BuyNow(),
-                BottomContainer(),
-              ],
+      body: WillPopScope(
+        onWillPop: alertExitApp,
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  TopContainer(),
+                  LoginBox(),
+                  BuyNow(),
+                  BottomContainer(),
+                ],
+              ),
             ),
           ),
         ),
