@@ -9,8 +9,17 @@ class LoginControllerImp extends LoginController {
   late TextEditingController email;
   late TextEditingController password;
 
+  GlobalKey<FormState> formstate = GlobalKey<FormState>();
+
   @override
-  login() {}
+  login() {
+    var formData = formstate.currentState;
+    if (formData!.validate()) {
+      print("Valid");
+    } else {
+      print("Not Valid");
+    }
+  }
 
   @override
   void onInit() {

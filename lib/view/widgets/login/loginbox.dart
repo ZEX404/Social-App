@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/functions/validinput.dart';
 import 'package:flutter/material.dart';
 import '../../../controller/auth/logincontroller.dart';
 import '../../../core/constants/colors.dart';
@@ -5,21 +6,6 @@ import 'package:get/get.dart';
 
 late double height;
 late double width;
-
-String? validateEmail(String? value) {
-  const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
-      r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
-      r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
-      r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
-      r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
-      r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
-      r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
-  final regex = RegExp(pattern);
-
-  return value!.isNotEmpty && !regex.hasMatch(value)
-      ? 'Enter a valid email address'
-      : null;
-}
 
 final focus = FocusNode();
 
@@ -67,7 +53,8 @@ class LoginBox extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
             ),
             child: Form(
-              autovalidateMode: AutovalidateMode.always,
+              // autovalidateMode: AutovalidateMode.always,
+              key: controller.formstate,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -80,6 +67,13 @@ class LoginBox extends StatelessWidget {
                           color: Colors.transparent.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(8)),
                       child: TextFormField(
+                        validator: (val) {
+                          if (validInput(val!, 5, 100, 'email') != null) {
+                            print(
+                                "error in email ${validInput(val, 5, 100, 'email')}");
+                          }
+                          return null;
+                        },
                         controller: controller.email,
                         style: const TextStyle(
                           fontFamily: 'Cairo',
@@ -130,15 +124,22 @@ class LoginBox extends StatelessWidget {
                           color: Colors.transparent.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(8)),
                       child: TextFormField(
+                        validator: (val) {
+                          if (validInput(val!, 6, 30, 'password') != null) {
+                            print(
+                                "error in password ${validInput(val, 6, 30, 'password')}");
+                          }
+                          return null;
+                        },
                         controller: controller.password,
-                        style: const TextStyle(
-                          fontFamily: 'Cairo',
-                        ),
                         focusNode: focus,
                         textAlign: TextAlign.start,
                         textInputAction: TextInputAction.done,
                         keyboardType: TextInputType.visiblePassword,
                         decoration: InputDecoration(
+                          errorStyle: const TextStyle(
+                            fontFamily: 'Cairo',
+                          ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: const BorderSide(
