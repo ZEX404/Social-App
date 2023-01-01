@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/constants/routes.dart';
+import '../../../core/services/services.dart';
+
+MyServices myServices = Get.find();
 
 class OnBoardingButton2 extends StatelessWidget {
   const OnBoardingButton2({super.key});
@@ -11,6 +14,7 @@ class OnBoardingButton2 extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         Get.offAllNamed(AppRoutes.login);
+        myServices.sharedPreferences.setString("onboarding", "1");
       },
       style: ButtonStyle(
         shape: MaterialStateProperty.all(

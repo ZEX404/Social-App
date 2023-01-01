@@ -1,9 +1,12 @@
 import 'package:ecommerce_app/core/constants/routes.dart';
+import 'package:ecommerce_app/core/middleware/middleware.dart';
 import 'package:ecommerce_app/view/screens/auth/login.dart';
+import 'package:ecommerce_app/view/screens/language.dart';
 import 'package:ecommerce_app/view/screens/onboarding.dart';
-import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-Map<String, Widget Function(BuildContext)> routes = {
-  AppRoutes.login: (p0) => const Login(),
-  AppRoutes.onBoarding: (p0) => const OnBoarding(),
-};
+List<GetPage<dynamic>>? routes = [
+  GetPage(name: "/", page: () => const Language(), middlewares: [MiddleWare()]),
+  GetPage(name: AppRoutes.login, page: () => const Login()),
+  GetPage(name: AppRoutes.onBoarding, page: () => const OnBoarding()),
+];

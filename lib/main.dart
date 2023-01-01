@@ -1,10 +1,9 @@
-import 'package:ecommerce_app/core/localization/changelocale.dart';
-import 'package:ecommerce_app/core/localization/translation.dart';
-import 'package:ecommerce_app/view/screens/language.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'core/constants/colors.dart';
+import 'core/localization/changelocale.dart';
+import 'core/localization/translation.dart';
 import 'core/services/services.dart';
 import 'routes.dart';
 
@@ -43,8 +42,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const Language(),
-      routes: routes,
+      getPages: routes,
     );
   }
 }
