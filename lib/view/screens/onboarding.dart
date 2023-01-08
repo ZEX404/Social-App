@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/constants/colors.dart';
+import 'package:ecommerce_app/core/constants/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/onboardingcontroller.dart';
@@ -67,7 +68,9 @@ class OnBoarding extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(18.0),
                                     side: const BorderSide(
                                         color: AppColors.kTextColor)))),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(AppRoutes.signUp);
+                    },
                     child: SizedBox(
                       width: width / 1.5,
                       child: const Text(
@@ -96,7 +99,9 @@ class OnBoarding extends StatelessWidget {
                         ),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(AppRoutes.login);
+                    },
                     child: const Text(
                       "I ALREADY HAVE AN ACCOUNT",
                       textAlign: TextAlign.center,

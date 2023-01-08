@@ -28,14 +28,20 @@ class MyApp extends StatelessWidget {
       title: 'ZEX HACK',
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: AppColors.kPrimaryColor,
-        textTheme: const TextTheme(
+        textTheme: TextTheme(
           headline1: TextStyle(
             fontFamily: 'Cairo',
             fontWeight: FontWeight.w600,
-            fontSize: 26,
-            color: Colors.black,
+            fontSize: 22,
+            color: AppColors.kTextColor.withOpacity(0.8),
           ),
-          bodyText1: TextStyle(
+          headline2: TextStyle(
+            fontFamily: 'Cairo',
+            fontWeight: FontWeight.w600,
+            fontSize: 26,
+            color: AppColors.kTextColor.withOpacity(0.8),
+          ),
+          bodyText1: const TextStyle(
             color: AppColors.kTextColor,
             overflow: TextOverflow.ellipsis,
             fontFamily: 'Cairo',
