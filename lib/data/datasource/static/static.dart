@@ -1,27 +1,31 @@
 import '../../../core/constants/imageassets.dart';
 import '../../model/onboardingmodel.dart';
-import 'package:get/get.dart';
 
 // ignore: non_constant_identifier_names
 List<OnBoardingModel> OnBoardingList = [
   OnBoardingModel(
-    title: 'title1'.tr,
-    body: 'body1'.tr,
+    title: 'Easily manage & track your time',
+    body: 'body1',
     image: ImageAsset.onBoardingImage1,
   ),
   OnBoardingModel(
-    title: 'title2'.tr,
-    body: 'body2'.tr,
+    title: 'Study & work with others',
+    body: 'body2',
     image: ImageAsset.onBoardingImage2,
   ),
   OnBoardingModel(
-    title: 'title3'.tr,
-    body: 'body3'.tr,
+    title: 'Stay motivated while you focus',
+    body: 'body3',
     image: ImageAsset.onBoardingImage3,
   ),
   OnBoardingModel(
-    title: 'title4'.tr,
-    body: 'body4'.tr,
+    title: 'Visualize your progress over time',
+    body: 'body4',
     image: ImageAsset.onBoardingImage4,
+  ),
+  OnBoardingModel(
+    title: 'Find a supportive community',
+    body: 'body4',
+    image: ImageAsset.onBoardingImage5,
   ),
 ];

@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'package:ecommerce_app/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../constants/colors.dart';
 
 Future<bool> alertExitApp() {
   Get.defaultDialog(

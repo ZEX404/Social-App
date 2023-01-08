@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../data/datasource/static/static.dart';
 
+late double height;
+late double width;
+
 class OnBoardingSlider extends GetView<OnBoardingControllerImp> {
   const OnBoardingSlider({super.key});
 
   @override
   Widget build(BuildContext context) {
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
     return PageView.builder(
       controller: controller.pageController,
       onPageChanged: (value) {
@@ -21,7 +26,7 @@ class OnBoardingSlider extends GetView<OnBoardingControllerImp> {
             const Expanded(child: SizedBox()),
             Image.asset(
               OnBoardingList[i].image!,
-              width: MediaQuery.of(context).size.width,
+              height: 300,
               fit: BoxFit.contain,
             ),
             const Expanded(child: SizedBox()),
@@ -30,13 +35,12 @@ class OnBoardingSlider extends GetView<OnBoardingControllerImp> {
               alignment: Alignment.center,
               child: Column(
                 children: [
-                  Text(OnBoardingList[i].title!,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline1),
-                  Text(OnBoardingList[i].body!,
-                      textAlign: TextAlign.center,
-                      maxLines: 3,
-                      style: Theme.of(context).textTheme.bodyText1),
+                  Text(
+                    OnBoardingList[i].title!,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline1,
+                  ),
+                  const SizedBox(height: 50),
                 ],
               ),
             ),

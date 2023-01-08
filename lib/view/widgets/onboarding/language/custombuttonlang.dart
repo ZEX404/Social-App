@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomButtonLang extends StatelessWidget {
@@ -11,13 +12,17 @@ class CustomButtonLang extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 100.0),
       width: double.infinity,
       child: MaterialButton(
-        color: Colors.orange,
-        onPressed:onPressed,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
+            side: const BorderSide(color: AppColors.kTextColor)),
+        elevation: 0,
+        color: Colors.cyan.withOpacity(0.2),
+        onPressed: onPressed,
         child: Text(
           text,
           style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Cairo',
+            color: AppColors.kTextColor,
+            fontFamily: 'kufa',
             fontSize: 18,
           ),
         ),

@@ -1,7 +1,7 @@
-import 'package:ecommerce_app/core/constants/routes.dart';
-import 'package:ecommerce_app/core/localization/changelocale.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../core/constants/routes.dart';
+import '../../core/localization/changelocale.dart';
 import '../widgets/onboarding/language/custombuttonlang.dart';
 
 class Language extends GetView<LocalController> {

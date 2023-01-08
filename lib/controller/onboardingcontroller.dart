@@ -1,8 +1,9 @@
-import 'package:ecommerce_app/core/constants/routes.dart';
-import 'package:ecommerce_app/core/services/services.dart';
-import 'package:ecommerce_app/data/datasource/static/static.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+
+import '../core/constants/routes.dart';
+import '../core/services/services.dart';
+import '../data/datasource/static/static.dart';
 
 abstract class OnBoardingController extends GetxController {
   next();

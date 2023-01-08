@@ -1,465 +1,296 @@
-import 'package:ecommerce_app/view/widgets/login/bottomcontainer.dart';
-import 'package:ecommerce_app/view/widgets/login/buynow.dart';
-import 'package:ecommerce_app/view/widgets/login/loginbox.dart';
-import 'package:ecommerce_app/view/widgets/login/topcontainer.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import '../../../core/constants/colors.dart';
+import '../../../core/constants/constants.dart';
 import '../../../core/functions/alertexitapp.dart';
+import '../../widgets/login/bottomcontainer.dart';
+import '../../widgets/login/loginbox.dart';
+import 'package:root_access/root_access.dart';
 
 late double height;
 late double width;
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  Future<void> initRootRequest() async {
+    bool rootStatus = await RootAccess.requestRootAccess;
+    if (!mounted) return;
+    setState(() {
+      rootStatusP = rootStatus;
+    });
+  }
+
+  @override
+  void initState() {
+    initRootRequest();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      body: WillPopScope(
-        onWillPop: alertExitApp,
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    const shadows2 = [
+      Shadow(offset: Offset(-0.5, -0.5), color: Colors.black),
+      Shadow(offset: Offset(0.5, -0.5), color: Colors.black),
+      Shadow(offset: Offset(0.5, 0.5), color: Colors.black),
+      Shadow(offset: Offset(-0.5, 0.5), color: Colors.black),
+    ];
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage(
+              'assets/images/zex/bg.jpg',
+            ),
+            fit: BoxFit.fitWidth),
+      ),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          flexibleSpace: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              height: height / 12,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.1),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(25),
+                  topRight: Radius.circular(25),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  TopContainer(),
-                  LoginBox(),
-                  BuyNow(),
-                  BottomContainer(),
+                  Text(
+                    'ZEX VIP ',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      overflow: TextOverflow.ellipsis,
+                      fontSize: 30,
+                      color: Colors.red,
+                      fontFamily: 'welcome',
+                      shadows: shadows2,
+                    ),
+                  ),
+                  Text(
+                    'V1.0.2',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      overflow: TextOverflow.ellipsis,
+                      fontSize: 30,
+                      color: Colors.orange,
+                      fontFamily: 'welcome',
+                      shadows: shadows2,
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-
-/*
-
-
-
-
-
-
-
-// ignore_for_file: use_build_context_synchronously
-
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import '../helper/show_snackbar.dart';
-import '../screens/mainscreen.dart';
-import '../widgets/custom_button.dart';
-import '../widgets/custom_textfield.dart';
-import 'register.dart';
-
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-  static String id = 'LoginScreen';
-
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  Color textColor = Colors.green;
-  String? email, password;
-  bool isLoading = false;
-  bool isLoadingForRecover = false;
-  GlobalKey<FormState> formkey = GlobalKey();
-  bool isObsecure = true;
-  final auth = FirebaseAuth.instance;
-  late User user;
-
-  @override
-  Widget build(BuildContext context) {
-    Color kPrimaryColor = const Color.fromARGB(255, 0, 109, 126);
-    return Scaffold(
-      backgroundColor: kPrimaryColor,
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            end: Alignment.topCenter,
-            begin: Alignment.center,
-            colors: [
-              const Color.fromARGB(255, 0, 109, 126),
-              const Color.fromARGB(255, 33, 243, 121).withOpacity(0.2),
-            ],
-          ),
-        ),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Form(
-                key: formkey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 10,
-                      ),
-                      child: CircleAvatar(
-                        backgroundColor: Colors.white.withOpacity(0.1),
-                        radius: 80,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(80),
-                          child: const FadeInImage(
-                            image: AssetImage('assets/images/logo.png'),
-                            placeholder: AssetImage('assets/images/logo.png'),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(
-                        top: 5,
-                      ),
-                      child: Text(
-                        'مرحبا بك',
+        body: WillPopScope(
+          onWillPop: alertExitApp,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: ListView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      Image.asset('assets/images/zex/icon.png', height: 200),
+                      const Text(
+                        'Hello, insert your key to login',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontFamily: 'ElMessiri',
-                          fontSize: 35,
+                          overflow: TextOverflow.ellipsis,
+                          fontSize: 18,
                           color: Colors.white,
+                          fontFamily: 'kufa',
+                          shadows: shadows2,
                         ),
                       ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(
-                        bottom: 30,
-                      ),
-                      child: Text(
-                        'أدخل بياناتك لتسجيل الدخول',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'ElMessiri',
-                          fontSize: 20,
-                          color: Colors.black54,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10, bottom: 10),
-                      child: CustomTextFormField(
-                        prefixIcon: const Icon(
-                          Icons.email,
-                          color: Colors.black45,
-                        ),
-                        TextInputType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.next,
-                        onChanged: (data) {
-                          email = data.trim();
-                        },
-                        hinttext: 'البريد الإلكتروني',
-                      ),
-                    ),
-                    CustomTextFormField(
-                      prefixIcon: const Icon(
-                        Icons.password,
-                        color: Colors.black45,
-                      ),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            isObsecure = !isObsecure;
-                          });
-                        },
-                        icon: Icon(
-                          isObsecure ? Icons.visibility : Icons.visibility_off,
-                          color: Colors.black26,
-                        ),
-                      ),
-                      TextInputType: TextInputType.visiblePassword,
-                      textInputAction: TextInputAction.done,
-                      isObscure: isObsecure,
-                      onChanged: (data) {
-                        password = data.trim();
-                      },
-                      hinttext: 'كلمة المرور',
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                barrierDismissible: true,
-                                context: context,
-                                builder: (context) {
-                                  GlobalKey<FormState> emailController =
-                                      GlobalKey();
-                                  return Dialog(
-                                    backgroundColor: kPrimaryColor,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                    child: Stack(
-                                      alignment: Alignment.topCenter,
-                                      clipBehavior: Clip.none,
-                                      children: [
-                                        Form(
-                                          key: emailController,
-                                          child: Container(
-                                            alignment: Alignment.center,
-                                            height: 200,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                const Spacer(
-                                                  flex: 3,
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                    horizontal: 12,
-                                                  ),
-                                                  child: CustomTextFormField(
-                                                    initialtext: email ?? '',
-                                                    textInputAction:
-                                                        TextInputAction.done,
-                                                    TextInputType: TextInputType
-                                                        .emailAddress,
-                                                    prefixIcon: null,
-                                                    hinttext:
-                                                        'البريد الإلكتروني',
-                                                    onChanged: (data) {
-                                                      email = data;
-                                                    },
-                                                  ),
-                                                ),
-                                                const Spacer(
-                                                  flex: 1,
-                                                ),
-                                                GestureDetector(
-                                                  onTap: () async {
-                                                    if (isLoadingForRecover) {
-                                                      return;
-                                                    }
-                                                    if (emailController
-                                                        .currentState!
-                                                        .validate()) {
-                                                      setState(() {
-                                                        isLoadingForRecover =
-                                                            true;
-                                                      });
-                                                      try {
-                                                        await FirebaseAuth
-                                                            .instance
-                                                            .sendPasswordResetEmail(
-                                                                email: email!
-                                                                    .trim())
-                                                            .then((value) =>
-                                                                showSnackBar(
-                                                                  context,
-                                                                  'Password reset email has been sent',
-                                                                  Colors.green,
-                                                                ));
-                                                      } on FirebaseAuthException catch (e) {
-                                                        if (e.code ==
-                                                            'user-not-found') {
-                                                          showSnackBar(
-                                                              context,
-                                                              'البريد الإلكتروني غير موجود',
-                                                              Colors.red);
-                                                        } else {
-                                                          showSnackBar(
-                                                              context,
-                                                              e.toString(),
-                                                              Colors.red);
-                                                        }
-                                                        setState(() {
-                                                          isLoadingForRecover =
-                                                              false;
-                                                        });
-                                                      }
-                                                      setState(() {
-                                                        isLoadingForRecover =
-                                                            false;
-                                                      });
-                                                      Navigator.pop(context);
-                                                    }
-
-                                                    // recover my password
-                                                  },
-                                                  child: isLoadingForRecover ==
-                                                          false
-                                                      ? const Text(
-                                                          'استرجاع كلمة المرور',
-                                                          style: TextStyle(
-                                                            color: Colors.cyan,
-                                                            fontFamily: 'Cairo',
-                                                            fontSize: 18,
-                                                          ),
-                                                        )
-                                                      : Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            CircularProgressIndicator(
-                                                              color:
-                                                                  kPrimaryColor,
-                                                              strokeWidth: 4,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                ),
-                                                const Spacer(
-                                                  flex: 2,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        Positioned(
-                                          top: -80,
-                                          child: Image.asset(
-                                            'assets/images/reset-password.png',
-                                            height: 120,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                            child: isLoadingForRecover == false
-                                ? const Text(
-                                    'استرجاع كلمة المرور',
-                                    style: TextStyle(
-                                      fontFamily: 'Cairo',
-                                      fontSize: 14,
-                                      color: Colors.black54,
-                                    ),
-                                  )
-                                : Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      Text(
-                                        'الرجاء الإنتظار',
-                                        style: TextStyle(
-                                          fontFamily: 'Cairo',
-                                          fontSize: 14,
-                                          color: Colors.black87,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 15,
-                                      ),
-                                      CircularProgressIndicator(
-                                        color: Colors.black87,
-                                        strokeWidth: 2,
-                                      ),
-                                    ],
-                                  ),
-                          )
-                        ],
-                      ),
-                    ),
-                    CustomButton(
-                      isLoading: isLoading,
-                      text: 'تسجيل الدخول',
-                      onTap: () async {
-                        if (isLoading) return;
-                        if (formkey.currentState!.validate()) {
-                          setState(() {
-                            isLoading = true;
-                          });
-                          try {
-                            await loginUser();
-                            user = auth.currentUser!;
-                            Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              MainScreen.id,
-                              (Route<dynamic> route) => false,
-                            );
-                          } on FirebaseAuthException catch (e) {
-                            if (e.code == 'user-not-found') {
-                              showSnackBar(context,
-                                  'البريد الإلكتروني غير موجود', Colors.red);
-                            } else if (e.code == 'wrong-password') {
-                              showSnackBar(
-                                  context, 'كلمة المرور غير صحيحة', Colors.red);
-                            }
-                          } catch (e) {
-                            showSnackBar(context, e.toString(), Colors.red);
-                          }
-                          setState(() {
-                            isLoading = false;
-                          });
-                        }
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, RegisterScreen.id);
-                            },
-                            child: const Text(
-                              'انشئ حساب الان',
-                              style: TextStyle(
-                                color: Colors.cyan,
-                                fontSize: 16,
-                                fontFamily: 'Cairo',
-                              ),
-                            ),
-                          ),
-                          const Text(
-                            ' ليس لديك حساب ؟',
-                            style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 16,
-                              fontFamily: 'Cairo',
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                      const LoginBox(),
+                    ],
+                  ),
                 ),
-              ),
+                const BottomContainer(),
+              ],
             ),
           ),
         ),
       ),
     );
   }
-
-  Future<void> loginUser() async {
-    // ignore: unused_local_variable
-    UserCredential user = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(
-            email: email!.trim(), password: password!.trim());
-  }
 }
 
+class OldLoginBox extends StatelessWidget {
+  const OldLoginBox({
+    Key? key,
+  }) : super(key: key);
 
-
-
-
-
-
-
-
-
-
-
-
-*/
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        child: WillPopScope(
+          onWillPop: alertExitApp,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                height: height / 12,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.1),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(25),
+                    topRight: Radius.circular(25),
+                  ),
+                ),
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          width: width / 2.5,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.security,
+                                size: 25,
+                                color: AppColors.kTextColor,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  rootStatusP != null
+                                      ? rootStatusP == true
+                                          ? "Root Access".tr
+                                          : "No Root"
+                                      : "Checking",
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                    fontSize: 18,
+                                    color: rootStatusP != null
+                                        ? rootStatusP == true
+                                            ? Colors.greenAccent
+                                            : Colors.red
+                                        : Colors.orange,
+                                    fontFamily: 'Cairo',
+                                    fontWeight: FontWeight.bold,
+                                    shadows: const [
+                                      Shadow(
+                                          // bottomLeft
+                                          offset: Offset(-0.5, -0.5),
+                                          color: Colors.black),
+                                      Shadow(
+                                          // bottomRight
+                                          offset: Offset(0.5, -0.5),
+                                          color: Colors.black),
+                                      Shadow(
+                                          // topRight
+                                          offset: Offset(0.5, 0.5),
+                                          color: Colors.black),
+                                      Shadow(
+                                          // topLeft
+                                          offset: Offset(-0.5, 0.5),
+                                          color: Colors.black),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Version : ".tr,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontFamily: 'Cairo',
+                              fontWeight: FontWeight.bold,
+                              shadows: [
+                                Shadow(
+                                    // bottomLeft
+                                    offset: Offset(-0.5, -0.5),
+                                    color: Colors.black),
+                                Shadow(
+                                    // bottomRight
+                                    offset: Offset(0.5, -0.5),
+                                    color: Colors.black),
+                                Shadow(
+                                    // topRight
+                                    offset: Offset(0.5, 0.5),
+                                    color: Colors.black),
+                                Shadow(
+                                    // topLeft
+                                    offset: Offset(-0.5, 0.5),
+                                    color: Colors.black),
+                              ],
+                            ),
+                          ),
+                          const Text(
+                            "1.0",
+                            maxLines: 1,
+                            style: TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                              fontSize: 18,
+                              color: AppColors.kTextColor,
+                              fontFamily: 'Cairo',
+                              fontWeight: FontWeight.bold,
+                              shadows: [
+                                Shadow(
+                                    // bottomLeft
+                                    offset: Offset(-0.5, -0.5),
+                                    color: Colors.black),
+                                Shadow(
+                                    // bottomRight
+                                    offset: Offset(0.5, -0.5),
+                                    color: Colors.black),
+                                Shadow(
+                                    // topRight
+                                    offset: Offset(0.5, 0.5),
+                                    color: Colors.black),
+                                Shadow(
+                                    // topLeft
+                                    offset: Offset(-0.5, 0.5),
+                                    color: Colors.black),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const LoginBox(),
+              const BottomContainer(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

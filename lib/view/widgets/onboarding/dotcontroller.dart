@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/controller/onboardingcontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../core/constants/colors.dart';
 import '../../../data/datasource/static/static.dart';
 
 class DotController extends GetView<OnBoardingControllerImp> {
@@ -29,8 +30,8 @@ class DotController extends GetView<OnBoardingControllerImp> {
                 width: controller.currentPage == Index ? 12 : 10,
                 decoration: BoxDecoration(
                     color: controller.currentPage == Index
-                        ? Colors.white
-                        : Colors.white.withOpacity(0.2),
+                        ? AppColors.kTextColor
+                        : Colors.black26,
                     borderRadius: BorderRadius.circular(30.0)),
               ),
             ),
