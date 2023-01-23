@@ -1,5 +1,9 @@
 import 'package:ecommerce_app/core/constants/colors.dart';
+import 'package:ecommerce_app/view/screens/auth/custombuttonauth.dart';
+import 'package:ecommerce_app/view/widgets/auth/customtextform.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 
 late double height;
 late double width;
@@ -22,15 +26,28 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
-    const shadows2 = [
-      Shadow(offset: Offset(-0.5, -0.5), color: Colors.black),
-      Shadow(offset: Offset(0.5, -0.5), color: Colors.black),
-      Shadow(offset: Offset(0.5, 0.5), color: Colors.black),
-      Shadow(offset: Offset(-0.5, 0.5), color: Colors.black),
-    ];
     return Scaffold(
       backgroundColor: AppColors.kBackground,
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            // if (WidgetsBinding.instance.window.viewInsets.bottom > 0.0) {
+            //   //Keyboard is visible.
+            //   print("Keyboard is visible.");
+            //   // dismiss the keyboeard window ?
+            //   FocusManager.instance.primaryFocus?.unfocus();
+            //   FocusScope.of(context).unfocus();
+            // } else {
+            //   //Keyboard is not visible.
+            //   print("Keyboard is not visible.");
+            // }
+            Get.back();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: AppColors.kPrimaryColor,
+          ),
+        ),
         title: Text(
           "Sign In",
           style: Theme.of(context).textTheme.headline1!.copyWith(
@@ -41,10 +58,11 @@ class _LoginState extends State<Login> {
         backgroundColor: AppColors.kBackground,
       ),
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 35),
+        padding: const EdgeInsets.symmetric(horizontal: 30),
         child: ListView(
           children: [
-            const SizedBox(height: 20),
+            Image.asset('assets/images/icon.png',
+                height: 180, fit: BoxFit.fitHeight),
             Text(
               "Welcome Back",
               textAlign: TextAlign.center,
@@ -57,30 +75,61 @@ class _LoginState extends State<Login> {
                   fontSize: 14, color: AppColors.kTextColor.withOpacity(0.5)),
             ),
             const SizedBox(height: 40),
-            TextFormField(
-              style: Theme.of(context).textTheme.bodyText1,
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                // focusedBorder: OutlineInputBorder(
-                //   borderRadius: BorderRadius.circular(20),
-                // ),
-                contentPadding: const EdgeInsets.symmetric(vertical: 5),
-                label: const Text("Email",
-                    style: TextStyle(color: AppColors.kTextColor)),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                prefixIcon: const Icon(Icons.email_outlined,
-                    color: AppColors.kTextColor),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: const BorderSide(color: AppColors.kTextColor),
+            const CustomTextForm(
+              TextInputAction: TextInputAction.next,
+              hintText: "Enter your Email",
+              label: "Email",
+              iconData: Icons.email_outlined,
+              // myController: ,
+            ),
+            const SizedBox(height: 20),
+            const CustomTextForm(
+              TextInputAction: TextInputAction.done,
+              hintText: "Enter your Password",
+              label: "Password",
+              iconData: Icons.lock_outlined,
+              // myController: ,
+            ),
+            const SizedBox(height: 10),
+            Text(
+              "Forget Password",
+              textAlign: TextAlign.end,
+              style:
+                  Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 14),
+            ),
+            CustomButtonAuth(
+              text: "Sign In",
+              onPressed: () {},
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Don't have an account?",
+                  textAlign: TextAlign.end,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontSize: 14),
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(
-                    color: AppColors.kTextColor.withOpacity(0.2),
+                const SizedBox(width: 4),
+                InkWell(
+                  onTap: () {
+                    // Get.toNamed(AppRoutes.signUp);
+                    Get.back();
+                  },
+                  child: Text(
+                    "Create now",
+                    textAlign: TextAlign.end,
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.kPrimaryColor,
+                        ),
                   ),
                 ),
-              ),
+              ],
             ),
           ],
         ),

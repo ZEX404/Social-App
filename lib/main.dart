@@ -25,9 +25,9 @@ class MyApp extends StatelessWidget {
       locale: controller.language,
       translations: MyTranslation(),
       debugShowCheckedModeBanner: false,
-      title: 'ZEX HACK',
+      title: 'Flutter Demo',
       theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: AppColors.kPrimaryColor,
+        scaffoldBackgroundColor: AppColors.kBackground,
         textTheme: TextTheme(
           headline1: TextStyle(
             fontFamily: 'Cairo',
