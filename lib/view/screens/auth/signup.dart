@@ -121,9 +121,6 @@ class _SignUpState extends State<SignUp> {
           });
         }
 
-
-
-
         if (valueChoose == 'Male') {
           imageUrl = 'https://i.ibb.co/hZpCXsv/man.png';
         } else if (valueChoose == 'Female') {
@@ -257,42 +254,326 @@ class _SignUpState extends State<SignUp> {
         title: Text(
           "Sign Up",
           style: Theme.of(context).textTheme.displayLarge!.copyWith(
-              fontSize: 20, color: AppColors.kTextColor.withOpacity(0.5)),
+                fontSize: 20,
+              ),
         ),
         centerTitle: true,
         elevation: 0,
         backgroundColor: AppColors.kBackground,
       ),
-      body: isLoading == true
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(50),
-                  child: Container(
-                    height: height / 6,
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: AppColors.kPrimaryColor,
-                      ),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
+      body: ScrollConfiguration(
+        behavior: MyBehavior(),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 1),
+                  decoration: BoxDecoration(
+                    // border: Border.all(
+                    //   color: Colors.orange,
+                    //   width: 0.8,
+                    // ),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: SingleChildScrollView(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        CircularProgressIndicator(
-                          backgroundColor: AppColors.kBackground,
-                          color: AppColors.kTextColor,
-                        ),
-                        Center(
-                          child: Text(
-                            "Loading",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'Cairo',
-                              fontSize: 20,
-                              color: AppColors.kTextColor,
+                      children: [
+                        // Column(
+                        //   children: [
+                        //     Column(
+                        //       children: [
+                        //         Container(
+                        //           child: pickedImage == null
+                        //               ? valueChoose == 'Female'
+                        //                   ? const CircleAvatar(
+                        //                       backgroundColor:
+                        //                           Colors.transparent,
+                        //                       radius: 75,
+                        //                       backgroundImage: AssetImage(
+                        //                           'assets/images/woman.png'),
+                        //                     )
+                        //                   : const CircleAvatar(
+                        //                       backgroundColor:
+                        //                           Colors.transparent,
+                        //                       radius: 75,
+                        //                       backgroundImage: AssetImage(
+                        //                           'assets/images/man.png'),
+                        //                     )
+                        //               : CircleAvatar(
+                        //                   backgroundColor: Colors.blueGrey,
+                        //                   radius: 75,
+                        //                   backgroundImage:
+                        //                       FileImage(pickedImage!),
+                        //                 ),
+                        //         ),
+                        //         SingleChildScrollView(
+                        //           scrollDirection: Axis.horizontal,
+                        //           child: Center(
+                        //             child: SizedBox(
+                        //               width: width / 1.2,
+                        //               child: Padding(
+                        //                 padding: const EdgeInsets.symmetric(
+                        //                     vertical: 12),
+                        //                 child: Row(
+                        //                   mainAxisAlignment:
+                        //                       MainAxisAlignment.spaceEvenly,
+                        //                   children: [
+                        //                     GestureDetector(
+                        //                       onTap: fitchImageFromCamera,
+                        //                       child: Container(
+                        //                         // width: 150,
+                        //                         height: 50,
+                        //                         decoration: BoxDecoration(
+                        //                             color: Colors.white,
+                        //                             borderRadius:
+                        //                                 BorderRadius.circular(
+                        //                                     25)),
+                        //                         child: Padding(
+                        //                           padding: const EdgeInsets
+                        //                                   .symmetric(
+                        //                               horizontal: 12),
+                        //                           child: Row(
+                        //                             mainAxisAlignment:
+                        //                                 MainAxisAlignment
+                        //                                     .spaceEvenly,
+                        //                             crossAxisAlignment:
+                        //                                 CrossAxisAlignment
+                        //                                     .center,
+                        //                             children: [
+                        //                               Image.asset(
+                        //                                 'assets/images/camera.png',
+                        //                                 height: 20,
+                        //                               ),
+                        //                               const Padding(
+                        //                                 padding:
+                        //                                     EdgeInsets.only(
+                        //                                         left: 5),
+                        //                                 child: Text(
+                        //                                   'Camera',
+                        //                                   style: TextStyle(
+                        //                                       color: Colors
+                        //                                           .black54,
+                        //                                       // fontFamily: 'Cairo',
+                        //                                       fontSize: 16),
+                        //                                 ),
+                        //                               ),
+                        //                             ],
+                        //                           ),
+                        //                         ),
+                        //                       ),
+                        //                     ),
+                        //                     GestureDetector(
+                        //                       onTap: fitchImageFromGallery,
+                        //                       child: Container(
+                        //                         // width: 150,
+                        //                         height: 50,
+                        //                         decoration: BoxDecoration(
+                        //                             color: Colors.white,
+                        //                             borderRadius:
+                        //                                 BorderRadius.circular(
+                        //                                     25)),
+                        //                         child: Padding(
+                        //                           padding: const EdgeInsets
+                        //                                   .symmetric(
+                        //                               horizontal: 12),
+                        //                           child: Row(
+                        //                             mainAxisAlignment:
+                        //                                 MainAxisAlignment
+                        //                                     .spaceEvenly,
+                        //                             crossAxisAlignment:
+                        //                                 CrossAxisAlignment
+                        //                                     .center,
+                        //                             children: [
+                        //                               Image.asset(
+                        //                                 'assets/images/add_image.png',
+                        //                                 height: 20,
+                        //                               ),
+                        //                               const Padding(
+                        //                                 padding:
+                        //                                     EdgeInsets.only(
+                        //                                         left: 5),
+                        //                                 child: Text(
+                        //                                   'Gallery',
+                        //                                   style: TextStyle(
+                        //                                       color: Colors
+                        //                                           .black54,
+                        //                                       // fontFamily: 'Cairo',
+                        //                                       fontSize: 16),
+                        //                                 ),
+                        //                               ),
+                        //                             ],
+                        //                           ),
+                        //                         ),
+                        //                       ),
+                        //                     ),
+                        //                   ],
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ],
+                        // ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Form(
+                            key: formstate,
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 20),
+                                CustomTextForm(
+                                  TextInputAction: TextInputAction.next,
+                                  hintText: "Enter your fisrt name",
+                                  label: "Fisrt Name",
+                                  iconData: Icons.notes,
+                                  myController: firstnameController,
+                                  validator: (val) {
+                                    return validInput(val!, 1, 20, "name");
+                                  },
+                                ),
+                                const SizedBox(height: 20),
+                                CustomTextForm(
+                                  TextInputAction: TextInputAction.next,
+                                  hintText: "Enter your last name",
+                                  label: "Last Name",
+                                  iconData: Icons.notes,
+                                  myController: lastnameController,
+                                  validator: (val) {
+                                    return validInput(val!, 1, 20, "name");
+                                  },
+                                ),
+                                const SizedBox(height: 20),
+                                // CustomTextForm(
+                                //   TextInputAction: TextInputAction.next,
+                                //   hintText: "Enter your Phone",
+                                //   label: "Phone",
+                                //   iconData: Icons.phone,
+                                //   myController: phoneController,
+                                //   validator: (val) {
+                                //     return validInput(val!, 0, 20, "phone");
+                                //   },
+                                // ),
+                                // const SizedBox(height: 20),
+                                // CustomTextForm(
+                                //   TextInputAction: TextInputAction.next,
+                                //   hintText: "Enter A Username",
+                                //   label: "Username",
+                                //   iconData: Icons.perm_identity,
+                                //   myController: usernameController,
+                                //   validator: (val) {
+                                //     return validInput(val!, 5, 20, "username");
+                                //   },
+                                // ),
+                                // const SizedBox(height: 20),
+                                CustomTextForm(
+                                  TextInputAction: TextInputAction.next,
+                                  hintText: "Enter your Email",
+                                  label: "Email",
+                                  iconData: Icons.email_outlined,
+                                  myController: emailController,
+                                  validator: (val) {
+                                    return validInput(val!, 0, 100, "email");
+                                  },
+                                ),
+                                const SizedBox(height: 20),
+                                CustomTextForm(
+                                  TextInputAction: TextInputAction.done,
+                                  hintText: "Enter your Password",
+                                  label: "Password",
+                                  iconData: Icons.lock_outlined,
+                                  myController: passwordController,
+                                  validator: (val) {
+                                    return validInput(val!, 6, 100, "password");
+                                  },
+                                ),
+                                const SizedBox(height: 20),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color:
+                                          AppColors.kTextColor.withOpacity(0.5),
+                                      width: 0.5,
+                                    ),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 10.0),
+                                        child: valueChoose == null
+                                            ? Image.asset(
+                                                'assets/images/gender.png',
+                                                height: 25,
+                                              )
+                                            : valueChoose == 'Male'
+                                                ? Image.asset(
+                                                    'assets/images/male.png',
+                                                    height: 25,
+                                                  )
+                                                : Image.asset(
+                                                    'assets/images/female.png',
+                                                    height: 25,
+                                                  ),
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      Expanded(
+                                        child: DropdownButton(
+                                          hint: const Center(
+                                            child: Text(
+                                              'Select your gender',
+                                              style: TextStyle(
+                                                  color: AppColors.kTextColor,
+                                                  fontFamily: 'Cairo',
+                                                  fontSize: 20),
+                                            ),
+                                          ),
+                                          elevation: 0,
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          dropdownColor: Colors.transparent
+                                              .withOpacity(0.8),
+                                          icon: const Icon(
+                                            Icons.arrow_drop_down,
+                                            color: AppColors.kTextColor,
+                                          ),
+                                          iconSize: 36,
+                                          isExpanded: true,
+                                          underline: const SizedBox(),
+                                          value: valueChoose,
+                                          onChanged: (newValue) {
+                                            setState(() {
+                                              valueChoose = newValue as String?;
+                                            });
+                                          },
+                                          items: listGenders.map((valueItem) {
+                                            return DropdownMenuItem(
+                                              value: valueItem,
+                                              child: Center(
+                                                child: Text(
+                                                  valueItem,
+                                                  style: const TextStyle(
+                                                      color:
+                                                          AppColors.kTextColor,
+                                                      fontFamily: 'Cairo',
+                                                      fontSize: 20),
+                                                ),
+                                              ),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -300,388 +581,22 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                 ),
-              ],
-            )
-          : ScrollConfiguration(
-              behavior: MyBehavior(),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.orange,
-                            width: 0.8,
-                          ),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              Column(
-                                children: [
-                                  Column(
-                                    children: [
-                                      Container(
-                                        child: pickedImage == null
-                                            ? valueChoose == 'Female'
-                                                ? const CircleAvatar(
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    radius: 75,
-                                                    backgroundImage: AssetImage(
-                                                        'assets/images/woman.png'),
-                                                  )
-                                                : const CircleAvatar(
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    radius: 75,
-                                                    backgroundImage: AssetImage(
-                                                        'assets/images/man.png'),
-                                                  )
-                                            : CircleAvatar(
-                                                backgroundColor:
-                                                    Colors.blueGrey,
-                                                radius: 75,
-                                                backgroundImage:
-                                                    FileImage(pickedImage!),
-                                              ),
-                                      ),
-                                      SingleChildScrollView(
-                                        scrollDirection: Axis.horizontal,
-                                        child: Center(
-                                          child: SizedBox(
-                                            width: width / 1.2,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 12),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  GestureDetector(
-                                                    onTap: fitchImageFromCamera,
-                                                    child: Container(
-                                                      // width: 150,
-                                                      height: 50,
-                                                      decoration: BoxDecoration(
-                                                          color: Colors.white,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      25)),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal: 12),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceEvenly,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Image.asset(
-                                                              'assets/images/camera.png',
-                                                              height: 20,
-                                                            ),
-                                                            const Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      left: 5),
-                                                              child: Text(
-                                                                'Camera',
-                                                                style: TextStyle(
-                                                                    color: Colors.black54,
-                                                                    // fontFamily: 'Cairo',
-                                                                    fontSize: 16),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  GestureDetector(
-                                                    onTap:
-                                                        fitchImageFromGallery,
-                                                    child: Container(
-                                                      // width: 150,
-                                                      height: 50,
-                                                      decoration: BoxDecoration(
-                                                          color: Colors.white,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      25)),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal: 12),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceEvenly,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Image.asset(
-                                                              'assets/images/add_image.png',
-                                                              height: 20,
-                                                            ),
-                                                            const Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      left: 5),
-                                                              child: Text(
-                                                                'Gallery',
-                                                                style: TextStyle(
-                                                                    color: Colors.black54,
-                                                                    // fontFamily: 'Cairo',
-                                                                    fontSize: 16),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  // Text(
-                                  //   "Hi there!",
-                                  //   textAlign: TextAlign.center,
-                                  //   style: Theme.of(context)
-                                  //       .textTheme
-                                  //       .displayMedium!
-                                  //       .copyWith(),
-                                  // ),
-                                  // Text(
-                                  //   "Sign up with your email and password\nor continue with social media",
-                                  //   textAlign: TextAlign.center,
-                                  //   style: Theme.of(context)
-                                  //       .textTheme
-                                  //       .displayMedium!
-                                  //       .copyWith(
-                                  //           fontSize: 14,
-                                  //           color: AppColors.kTextColor
-                                  //               .withOpacity(0.5)),
-                                  // ),
-                                ],
-                              ),
-                              Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8),
-                                // decoration: BoxDecoration(
-                                //   border: Border.all(
-                                //     color: Colors.orange,
-                                //     width: 1,
-                                //   ),
-                                //   borderRadius: BorderRadius.circular(20),
-                                // ),
-                                child: Form(
-                                  key: formstate,
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(height: 20),
-                                      CustomTextForm(
-                                        TextInputAction: TextInputAction.next,
-                                        hintText: "Enter your fisrt name",
-                                        label: "Fisrt Name",
-                                        iconData: Icons.notes,
-                                        myController: firstnameController,
-                                        validator: (val) {
-                                          return validInput(
-                                              val!, 1, 20, "name");
-                                        },
-                                      ),
-                                      const SizedBox(height: 20),
-                                      CustomTextForm(
-                                        TextInputAction: TextInputAction.next,
-                                        hintText: "Enter your last name",
-                                        label: "Last Name",
-                                        iconData: Icons.notes,
-                                        myController: lastnameController,
-                                        validator: (val) {
-                                          return validInput(
-                                              val!, 1, 20, "name");
-                                        },
-                                      ),
-                                      const SizedBox(height: 20),
-                                      CustomTextForm(
-                                        TextInputAction: TextInputAction.next,
-                                        hintText: "Enter your Phone",
-                                        label: "Phone",
-                                        iconData: Icons.phone,
-                                        myController: phoneController,
-                                        validator: (val) {
-                                          return validInput(
-                                              val!, 0, 20, "phone");
-                                        },
-                                      ),
-                                      const SizedBox(height: 20),
-                                      CustomTextForm(
-                                        TextInputAction: TextInputAction.next,
-                                        hintText: "Enter A Username",
-                                        label: "Username",
-                                        iconData: Icons.perm_identity,
-                                        myController: usernameController,
-                                        validator: (val) {
-                                          return validInput(
-                                              val!, 5, 20, "username");
-                                        },
-                                      ),
-                                      const SizedBox(height: 20),
-                                      CustomTextForm(
-                                        TextInputAction: TextInputAction.next,
-                                        hintText: "Enter your Email",
-                                        label: "Email",
-                                        iconData: Icons.email_outlined,
-                                        myController: emailController,
-                                        validator: (val) {
-                                          return validInput(
-                                              val!, 0, 100, "email");
-                                        },
-                                      ),
-                                      const SizedBox(height: 20),
-                                      CustomTextForm(
-                                        TextInputAction: TextInputAction.done,
-                                        hintText: "Enter your Password",
-                                        label: "Password",
-                                        iconData: Icons.lock_outlined,
-                                        myController: passwordController,
-                                        validator: (val) {
-                                          return validInput(
-                                              val!, 6, 100, "password");
-                                        },
-                                      ),
-                                      const SizedBox(height: 20),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: AppColors.kTextColor
-                                                .withOpacity(0.5),
-                                            width: 0.5,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10.0),
-                                              child: valueChoose == null
-                                                  ? Image.asset(
-                                                      'assets/images/gender.png',
-                                                      height: 25,
-                                                    )
-                                                  : valueChoose == 'Male'
-                                                      ? Image.asset(
-                                                          'assets/images/male.png',
-                                                          height: 25,
-                                                        )
-                                                      : Image.asset(
-                                                          'assets/images/female.png',
-                                                          height: 25,
-                                                        ),
-                                            ),
-                                            const SizedBox(
-                                              width: 8,
-                                            ),
-                                            Expanded(
-                                              child: DropdownButton(
-                                                hint: const Center(
-                                                  child: Text(
-                                                    'Select your gender',
-                                                    style: TextStyle(
-                                                        color: AppColors
-                                                            .kTextColor,
-                                                        fontFamily: 'Cairo',
-                                                        fontSize: 20),
-                                                  ),
-                                                ),
-                                                elevation: 0,
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                dropdownColor: Colors
-                                                    .transparent
-                                                    .withOpacity(0.8),
-                                                icon: const Icon(
-                                                  Icons.arrow_drop_down,
-                                                  color: AppColors.kTextColor,
-                                                ),
-                                                iconSize: 36,
-                                                isExpanded: true,
-                                                underline: const SizedBox(),
-                                                value: valueChoose,
-                                                onChanged: (newValue) {
-                                                  setState(() {
-                                                    valueChoose =
-                                                        newValue as String?;
-                                                  });
-                                                },
-                                                items: listGenders
-                                                    .map((valueItem) {
-                                                  return DropdownMenuItem(
-                                                    value: valueItem,
-                                                    child: Center(
-                                                      child: Text(
-                                                        valueItem,
-                                                        style: const TextStyle(
-                                                            color: AppColors
-                                                                .kTextColor,
-                                                            fontFamily: 'Cairo',
-                                                            fontSize: 20),
-                                                      ),
-                                                    ),
-                                                  );
-                                                }).toList(),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    SizedBox(
-                      width: width,
-                      child: CustomButtonAuth(
-                        text: "Continue",
-                        onPressed: () async {
-                          await signUp();
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                  ],
+              ),
+              const SizedBox(height: 8),
+              SizedBox(
+                width: width,
+                child: CustomButtonAuth(
+                  text: "Continue",
+                  onPressed: () async {
+                    await signUp();
+                  },
                 ),
               ),
-            ),
+              const SizedBox(height: 8),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -69,6 +69,7 @@ class OnBoarding extends StatelessWidget {
                                         color: AppColors.kTextColor)))),
                     onPressed: () {
                       Get.toNamed(AppRoutes.signUp);
+                      // Get.toNamed(AppRoutes.join);
                     },
                     child: SizedBox(
                       width: width / 1.5,

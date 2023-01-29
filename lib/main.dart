@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'core/constants/colors.dart';
 import 'core/localization/changelocale.dart';
 import 'core/localization/translation.dart';
@@ -43,26 +44,23 @@ class MyApp extends StatelessWidget {
       locale: controller.language,
       translations: MyTranslation(),
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Social App',
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: AppColors.kBackground,
         textTheme: TextTheme(
-          displayLarge: TextStyle(
-            fontFamily: 'Cairo',
+          displayLarge: GoogleFonts.cairo(
             fontWeight: FontWeight.w600,
             fontSize: 22,
             color: AppColors.kTextColor.withOpacity(0.8),
           ),
-          displayMedium: TextStyle(
-            fontFamily: 'Cairo',
+          displayMedium: GoogleFonts.cairo(
             fontWeight: FontWeight.w600,
             fontSize: 26,
             color: AppColors.kTextColor.withOpacity(0.8),
           ),
-          bodyLarge: const TextStyle(
+          bodyLarge: GoogleFonts.cairo(
             color: AppColors.kTextColor,
-            overflow: TextOverflow.ellipsis,
-            fontFamily: 'Cairo',
+            // overflow: TextOverflow.ellipsis,
             fontSize: 18,
           ),
         ),
