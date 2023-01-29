@@ -47,6 +47,8 @@ class _LoginState extends State<Login> {
       if (response['status'] == 'success') {
         sharedPref.setString("email", emailController.text.trim());
         sharedPref.setString("password", passwordController.text);
+        addcontrollersuccess();
+        await Future.delayed(const Duration(seconds: 3));
         Get.offAllNamed(AppRoutes.home);
       } else {
         final snackbar = SnackBar(
@@ -73,12 +75,15 @@ class _LoginState extends State<Login> {
         );
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        addcontrollerfail();
       }
       if (mounted) {
         setState(() {
           isLoading = false;
         });
       }
+    } else {
+      addcontrollerfail();
     }
   }
 
@@ -90,6 +95,79 @@ class _LoginState extends State<Login> {
   late RiveAnimationController controllerfail;
   late RiveAnimationController controllerLook_down_right;
   late RiveAnimationController controllerLook_down_left;
+
+  final passwordFocusNode = FocusNode();
+
+  bool isLookingLeft = false;
+  bool isLookingRight = false;
+
+  void removeAllControllers() {
+    riveArtboard?.artboard.removeController(controllerIdle);
+    riveArtboard?.artboard.removeController(controllerHands_up);
+    riveArtboard?.artboard.removeController(controllerhands_down);
+    riveArtboard?.artboard.removeController(controllersuccess);
+    riveArtboard?.artboard.removeController(controllerfail);
+    riveArtboard?.artboard.removeController(controllerLook_down_right);
+    riveArtboard?.artboard.removeController(controllerLook_down_left);
+    isLookingLeft = false;
+    isLookingRight = false;
+  }
+
+  void addcontrollerIdle() {
+    removeAllControllers();
+    riveArtboard?.artboard.addController(controllerIdle);
+    debugPrint("Idle");
+  }
+
+  void addcontrollerHands_up() {
+    removeAllControllers();
+    riveArtboard?.artboard.addController(controllerHands_up);
+    debugPrint("Hands_up");
+  }
+
+  void addcontrollerhands_down() {
+    removeAllControllers();
+    riveArtboard?.artboard.addController(controllerhands_down);
+    debugPrint("hands_down");
+  }
+
+  void addcontrollersuccess() {
+    removeAllControllers();
+    riveArtboard?.artboard.addController(controllersuccess);
+    debugPrint("success");
+  }
+
+  void addcontrollerfail() async {
+    removeAllControllers();
+    riveArtboard?.artboard.addController(controllerfail);
+    debugPrint("fail");
+    await Future.delayed(const Duration(seconds: 3));
+    addcontrollerIdle();
+  }
+
+  void addcontrollerLook_down_right() {
+    removeAllControllers();
+    riveArtboard?.artboard.addController(controllerLook_down_right);
+    isLookingRight = true;
+    debugPrint("Look_down_right");
+  }
+
+  void addcontrollerLook_down_left() {
+    removeAllControllers();
+    riveArtboard?.artboard.addController(controllerLook_down_left);
+    isLookingLeft = true;
+    debugPrint("Look_down_left");
+  }
+
+  void checkPasswordFocusNode() {
+    passwordFocusNode.addListener(() {
+      if (passwordFocusNode.hasFocus) {
+        addcontrollerHands_up();
+      } else if (!passwordFocusNode.hasFocus) {
+        addcontrollerhands_down();
+      }
+    });
+  }
 
   @override
   void initState() {
@@ -113,6 +191,7 @@ class _LoginState extends State<Login> {
         riveArtboard = artboard;
       });
     });
+    checkPasswordFocusNode();
   }
 
   @override
@@ -150,27 +229,6 @@ class _LoginState extends State<Login> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  // Image.asset('assets/images/icon.png',
-                  //     height: 180, fit: BoxFit.fitHeight),
-                  // const SizedBox(height: 10),
-                  // Text(
-                  //   "Welcome Back",
-                  //   textAlign: TextAlign.center,
-                  //   style: GoogleFonts.roboto(
-                  //     fontSize: 26,
-                  //     color: AppColors.kTextColor,
-                  //     fontWeight: FontWeight.bold,
-                  //   ),
-                  // ),
-                  // Text(
-                  //   "Insert your details to sign in",
-                  //   textAlign: TextAlign.center,
-                  //   style: GoogleFonts.roboto(
-                  //     fontSize: 14,
-                  //     color: AppColors.kTextColor.withOpacity(0.7),
-                  //   ),
-                  // ),
-
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 3,
                     child: riveArtboard == null
@@ -179,8 +237,18 @@ class _LoginState extends State<Login> {
                             artboard: riveArtboard!,
                           ),
                   ),
-
                   CustomTextForm(
+                    onChanged: (value) {
+                      if (value.isNotEmpty &&
+                          value.length < 15 &&
+                          !isLookingLeft) {
+                        addcontrollerLook_down_left();
+                      } else if (value.isNotEmpty &&
+                          value.length > 15 &&
+                          !isLookingRight) {
+                        addcontrollerLook_down_right();
+                      }
+                    },
                     TextInputAction: TextInputAction.next,
                     hintText: "Enter your Email",
                     label: "Email",
@@ -192,6 +260,7 @@ class _LoginState extends State<Login> {
                   ),
                   const SizedBox(height: 15),
                   CustomTextForm(
+                    focusNode: passwordFocusNode,
                     TextInputAction: TextInputAction.done,
                     hintText: "Enter your Password",
                     label: "Password",
@@ -210,6 +279,7 @@ class _LoginState extends State<Login> {
                       padding: const EdgeInsets.symmetric(vertical: 5),
                       onPressed: () async {
                         if (isLoading != true) {
+                          passwordFocusNode.unfocus();
                           login();
                         }
                       },

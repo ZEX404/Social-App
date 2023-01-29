@@ -11,6 +11,8 @@ class CustomTextForm extends StatelessWidget {
   final TextInputAction;
   final TextEditingController myController;
   final String? Function(String?) validator;
+  final FocusNode? focusNode;
+  final Function(String)? onChanged;
 
   const CustomTextForm({
     super.key,
@@ -20,11 +22,15 @@ class CustomTextForm extends StatelessWidget {
     required this.TextInputAction,
     required this.myController,
     required this.validator,
+    this.focusNode,
+    this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanged,
+      focusNode: focusNode,
       validator: validator,
       controller: myController,
       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
