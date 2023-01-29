@@ -1,21 +1,34 @@
+import 'package:ecommerce_app/core/constants/constants.dart';
 import 'package:get/get.dart';
 
 validInput(String val, int min, int max, String type) {
   if (val.isEmpty) {
-    // return "$type can't be empty";
+    return messageInputEmpty;
   } else {
     if (type == 'email') {
       if (!GetUtils.isEmail(val)) {
-        // return "Not valid email";
+        return "Email $messageNotValid";
       }
     }
-  }
 
-  if (val.length < min) {
-    // return "can't be less than $min";
-  }
+    if (type == 'username') {
+      if (!GetUtils.isUsername(val) || val[0].isNum) {
+        return "Username $messageNotValid";
+      }
+    }
 
-  if (val.length > max) {
-    // return "can't be greater than $max";
+    if (type == 'phone') {
+      if (!GetUtils.isPhoneNumber(val)) {
+        return "Phone $messageNotValid";
+      }
+    }
+
+    if (val.length < min) {
+      return "$messageInputMin $min";
+    }
+
+    if (val.length > max) {
+      return "$messageInputMax $max";
+    }
   }
 }

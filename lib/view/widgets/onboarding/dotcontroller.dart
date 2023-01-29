@@ -17,10 +17,10 @@ class DotController extends GetView<OnBoardingControllerImp> {
             OnBoardingList.length,
             // ignore: non_constant_identifier_names
             (Index) => GestureDetector(
-              onTap: () {
-                controller.onPageChanged(Index - 1);
-                controller.next();
-              },
+              // onTap: () {
+              //   controller.onPageChanged(Index - 1);
+              //   controller.next();
+              // },
               child: AnimatedContainer(
                 margin: const EdgeInsets.all(3),
                 duration: const Duration(

@@ -2,6 +2,7 @@ import 'package:ecommerce_app/core/constants/colors.dart';
 import 'package:ecommerce_app/core/constants/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../controller/onboardingcontroller.dart';
 import '../widgets/onboarding/dotcontroller.dart';
 import '../widgets/onboarding/slider.dart';
@@ -10,10 +11,10 @@ late double height;
 late double width;
 
 const shadows2 = [
-  Shadow(offset: Offset(-0.5, -0.5), color: Colors.black),
-  Shadow(offset: Offset(0.5, -0.5), color: Colors.black),
-  Shadow(offset: Offset(0.5, 0.5), color: Colors.black),
-  Shadow(offset: Offset(-0.5, 0.5), color: Colors.black),
+  Shadow(offset: Offset(-0.2, -0.2), color: Colors.black),
+  Shadow(offset: Offset(0.2, -0.2), color: Colors.black),
+  Shadow(offset: Offset(0.2, 0.2), color: Colors.black),
+  Shadow(offset: Offset(-0.2, 0.2), color: Colors.black),
 ];
 
 class OnBoarding extends StatelessWidget {
@@ -37,9 +38,7 @@ class OnBoarding extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: const [
-                  // OnBoardingButton2(),
                   DotController(),
-                  // OnBoardingButton1(),
                 ],
               ),
             ),
@@ -73,15 +72,13 @@ class OnBoarding extends StatelessWidget {
                     },
                     child: SizedBox(
                       width: width / 1.5,
-                      child: const Text(
+                      child: Text(
                         "CREATE AN ACCOUNT",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          overflow: TextOverflow.ellipsis,
-                          letterSpacing: 2,
+                        style: GoogleFonts.roboto(
+                          letterSpacing: 1.5,
                           fontSize: 14,
                           color: AppColors.kTextColor,
-                          fontFamily: 'cairo',
                           shadows: shadows2,
                         ),
                       ),
@@ -102,15 +99,13 @@ class OnBoarding extends StatelessWidget {
                     onPressed: () {
                       Get.toNamed(AppRoutes.login);
                     },
-                    child: const Text(
+                    child: Text(
                       "I ALREADY HAVE AN ACCOUNT",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        overflow: TextOverflow.ellipsis,
-                        letterSpacing: 2,
+                      style: GoogleFonts.roboto(
+                        letterSpacing: 1.5,
                         fontSize: 14,
                         color: AppColors.kTextColor,
-                        fontFamily: 'cairo',
                         shadows: shadows2,
                       ),
                     ),

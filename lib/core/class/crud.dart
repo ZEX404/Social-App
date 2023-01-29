@@ -1,27 +1,35 @@
-import 'dart:convert';
-import 'package:dartz/dartz.dart';
-import 'package:ecommerce_app/core/class/statusrequest.dart';
+// ignore_for_file: avoid_print
+
 import 'package:http/http.dart' as http;
-import '../functions/checkinternet.dart';
+import 'dart:convert';
 
 class Crud {
-  Future<Either<StatusRequest, Map>> postData(String linkurl, Map data) async {
+  getRequest(String url) async {
     try {
-      if (await checkInternet()) {
-        var response = await http.post(Uri.parse(linkurl), body: data);
-        // print(response.statusCode);
-        if (response.statusCode == 200 || response.statusCode == 201) {
-          Map responsebody = jsonDecode(response.body);
-          // print(responsebody);
-          return Right(responsebody);
-        } else {
-          return const Left(StatusRequest.serverfailure);
-        }
+      var response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        var responseBody = jsonDecode(response.body);
+        return responseBody;
       } else {
-        return const Left(StatusRequest.offlinefailure);
+        print("Error statusCode : ${response.statusCode}");
       }
-    } catch (_) {
-      return const Left(StatusRequest.serverfailure);
+    } catch (e) {
+      print("Error from catch : $e");
+    }
+  }
+
+  postRequest(String url, Map data) async {
+    // await Future.delayed(const Duration(seconds: 3));
+    try {
+      var response = await http.post(Uri.parse(url), body: data);
+      if (response.statusCode == 200) {
+        var responseBody = jsonDecode(response.body);
+        return responseBody;
+      } else {
+        print("Error statusCode : ${response.statusCode}");
+      }
+    } catch (e) {
+      print("Error from catch : $e");
     }
   }
 }

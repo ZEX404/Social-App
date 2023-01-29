@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomButtonLang extends StatelessWidget {
   final String text;
@@ -20,9 +21,8 @@ class CustomButtonLang extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           text,
-          style: const TextStyle(
+          style: GoogleFonts.notoKufiArabic(
             color: AppColors.kTextColor,
-            fontFamily: 'kufa',
             fontSize: 18,
           ),
         ),
