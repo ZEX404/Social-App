@@ -4,8 +4,8 @@ import 'package:ecommerce_app/view/screens/auth/join.dart';
 // import 'package:ecommerce_app/core/middleware/middleware.dart';
 import 'package:ecommerce_app/view/screens/auth/login.dart';
 import 'package:ecommerce_app/view/screens/home/home.dart';
-import 'package:ecommerce_app/view/screens/language.dart';
 import 'package:ecommerce_app/view/screens/onboarding.dart';
+// import 'package:ecommerce_app/view/screens/language.dart';
 import 'package:get/get.dart';
 import 'view/screens/auth/signup.dart';
 
@@ -14,7 +14,7 @@ List<GetPage<dynamic>>? routes = [
     name: "/",
     page: () {
       if (sharedPref.getString("email") == null) {
-        return const Language();
+        return const OnBoarding();
       } else {
         return const HomeScreen();
       }

@@ -11,7 +11,7 @@ import 'package:ecommerce_app/view/widgets/auth/customtextform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
+// import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rive/rive.dart';
 import '../../../core/functions/validinput.dart';
@@ -236,11 +236,11 @@ class _LoginState extends State<Login> {
                 children: [
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 3,
-                    child: riveArtboard == null
-                        ? const SizedBox.shrink()
-                        : Rive(
-                            artboard: riveArtboard!,
-                          ),
+                    // child: riveArtboard == null
+                    //     ? const SizedBox.shrink()
+                    //     : Rive(
+                    //         artboard: riveArtboard!,
+                    //       ),
                   ),
                   CustomTextForm(
                     onChanged: (value) {

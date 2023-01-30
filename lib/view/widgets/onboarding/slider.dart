@@ -10,6 +10,13 @@ import '../../../data/datasource/static/static.dart';
 late double height;
 late double width;
 
+const shadows = [
+  Shadow(offset: Offset(-0.3, -0.3), color: AppColors.kTextColor),
+  Shadow(offset: Offset(0.3, -0.3), color: AppColors.kTextColor),
+  Shadow(offset: Offset(0.3, 0.3), color: AppColors.kTextColor),
+  Shadow(offset: Offset(-0.3, 0.3), color: AppColors.kTextColor),
+];
+
 class OnBoardingSlider extends GetView<OnBoardingControllerImp> {
   const OnBoardingSlider({super.key});
 
@@ -17,53 +24,85 @@ class OnBoardingSlider extends GetView<OnBoardingControllerImp> {
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
-    return Padding(
-      padding: const EdgeInsets.only(top: 20),
-      child: CarouselSlider.builder(
-        itemCount: OnBoardingList.length,
-        options: CarouselOptions(
-          height: height,
-          onPageChanged: (index, reason) {
-            controller.onPageChanged(index);
-          },
-          autoPlay: true,
-          autoPlayInterval: const Duration(seconds: 4),
-          enlargeCenterPage: true,
-        ),
-        itemBuilder: (context, i, realIndex) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return CarouselSlider.builder(
+      itemCount: OnBoardingList.length,
+      options: CarouselOptions(
+        height: height / 3,
+        onPageChanged: (index, reason) {
+          controller.onPageChanged(index);
+        },
+        autoPlay: true,
+        autoPlayInterval: const Duration(seconds: 4),
+        enlargeCenterPage: true,
+      ),
+      itemBuilder: (context, i, realIndex) {
+        return Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.black45,
+            ),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Column(
             children: [
-              Container(
-                padding: const EdgeInsets.all(5),
-                height: height / 2.5,
-                width: width,
-                decoration: BoxDecoration(
-                  color: Colors.transparent.withOpacity(0.03),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: CachedNetworkImage(
-                  imageUrl: OnBoardingList[i].image!,
-                  fit: BoxFit.cover,
+              Expanded(
+                flex: 6,
+                child: Container(
+                  width: width,
+                  decoration: BoxDecoration(
+                    color: AppColors.kPrimaryColor.withOpacity(0.4),
+                    border: Border.all(
+                      color: AppColors.kBackground.withOpacity(0.6),
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                    ),
+                  ),
+                  child: CachedNetworkImage(
+                    height: height / 4,
+                    imageUrl: OnBoardingList[i].image!,
+                    fit: BoxFit.fitHeight,
+                  ),
                 ),
               ),
               Expanded(
                 child: Container(
                   alignment: Alignment.center,
-                  child: Text(
-                    OnBoardingList[i].title!,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.notoKufiArabic(
-                      color: AppColors.kTextColor,
-                      fontSize: 16,
+                  decoration: BoxDecoration(
+                    color: AppColors.kBackground.withOpacity(0.4),
+                    border: Border.all(
+                      color: AppColors.kBackground.withOpacity(0.6),
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(15),
+                      bottomRight: Radius.circular(15),
+                    ),
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                  child: Center(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Text(
+                        OnBoardingList[i].title!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.alexandria(
+                          color: Colors.black,
+                          fontSize: 16,
+                          shadows: shadows,
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
             ],
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

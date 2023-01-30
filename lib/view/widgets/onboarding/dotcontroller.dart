@@ -16,23 +16,18 @@ class DotController extends GetView<OnBoardingControllerImp> {
           ...List.generate(
             OnBoardingList.length,
             // ignore: non_constant_identifier_names
-            (Index) => GestureDetector(
-              // onTap: () {
-              //   controller.onPageChanged(Index - 1);
-              //   controller.next();
-              // },
-              child: AnimatedContainer(
-                margin: const EdgeInsets.all(3),
-                duration: const Duration(
-                  milliseconds: 500,
-                ),
-                height: controller.currentPage == Index ? 12 : 10,
-                width: controller.currentPage == Index ? 12 : 10,
-                decoration: BoxDecoration(
-                    color: controller.currentPage == Index
-                        ? AppColors.kTextColor
-                        : Colors.black26,
-                    borderRadius: BorderRadius.circular(30.0)),
+            (Index) => AnimatedContainer(
+              margin: const EdgeInsets.all(3),
+              duration: const Duration(
+                milliseconds: 500,
+              ),
+              height: controller.currentPage == Index ? 10 : 5,
+              width: controller.currentPage == Index ? 10 : 10,
+              decoration: BoxDecoration(
+                color: controller.currentPage == Index
+                    ? AppColors.kTextColor
+                    : Colors.black26,
+                borderRadius: BorderRadius.circular(30.0),
               ),
             ),
           ),
