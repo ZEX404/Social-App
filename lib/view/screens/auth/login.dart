@@ -11,6 +11,7 @@ import 'package:ecommerce_app/view/widgets/auth/customtextform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rive/rive.dart';
 import '../../../core/functions/validinput.dart';
@@ -87,6 +88,8 @@ class _LoginState extends State<Login> {
     }
   }
 
+  bool isObsecure = true;
+
   Artboard? riveArtboard;
   late RiveAnimationController controllerIdle;
   late RiveAnimationController controllerHands_up;
@@ -125,10 +128,12 @@ class _LoginState extends State<Login> {
     debugPrint("Hands_up");
   }
 
-  void addcontrollerhands_down() {
+  void addcontrollerhands_down() async {
     removeAllControllers();
     riveArtboard?.artboard.addController(controllerhands_down);
     debugPrint("hands_down");
+    await Future.delayed(const Duration(seconds: 1));
+    addcontrollerIdle();
   }
 
   void addcontrollersuccess() {
@@ -259,16 +264,79 @@ class _LoginState extends State<Login> {
                     },
                   ),
                   const SizedBox(height: 15),
-                  CustomTextForm(
+                  TextFormField(
+                    obscureText: isObsecure,
                     focusNode: passwordFocusNode,
-                    TextInputAction: TextInputAction.done,
-                    hintText: "Enter your Password",
-                    label: "Password",
-                    iconData: Icons.lock_outlined,
-                    myController: passwordController,
                     validator: (val) {
                       return validInput(val!, 1, 50, "password");
                     },
+                    controller: passwordController,
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          color: Colors.black,
+                        ),
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.done,
+                    decoration: InputDecoration(
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                          color: Colors.red.withOpacity(0.6),
+                        ),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                          color: Colors.red.withOpacity(0.2),
+                        ),
+                      ),
+                      errorStyle: GoogleFonts.alexandria(
+                        color: Colors.red,
+                        fontSize: 12,
+                      ),
+                      hintText: "Enter your Password",
+                      hintStyle: TextStyle(
+                        color: AppColors.kTextColor.withOpacity(0.6),
+                        fontSize: 14,
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 5),
+                      label: const Text(
+                        "Password",
+                        style: TextStyle(
+                          color: AppColors.kTextColor,
+                        ),
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      suffixIcon: IconButton(
+                        splashRadius: 10,
+                        onPressed: () {
+                          setState(() {
+                            isObsecure = !isObsecure;
+                          });
+                        },
+                        icon: isObsecure
+                            ? const Icon(
+                                Icons.visibility,
+                                color: AppColors.kTextColor,
+                              )
+                            : const Icon(
+                                Icons.visibility_off,
+                                color: AppColors.kTextColor,
+                              ),
+                      ),
+                      prefixIcon: const Icon(Icons.lock_outlined,
+                          color: AppColors.kTextColor),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide:
+                            const BorderSide(color: AppColors.kTextColor),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                          color: AppColors.kTextColor.withOpacity(0.2),
+                        ),
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 25),
                   AnimatedContainer(
