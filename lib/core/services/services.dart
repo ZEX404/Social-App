@@ -9,7 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ecommerce_app/core/constants/constants.dart';
 
 bool isInternetAccess = false;
-
 String? alexandria;
 
 class MyServices extends GetxService {
@@ -19,6 +18,7 @@ class MyServices extends GetxService {
     return this;
   }
 }
+
 
 String quoteAuthor = "";
 String quoteText = "";
