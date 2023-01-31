@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -45,11 +44,11 @@ class SignInForm extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 8, bottom: 25),
+            padding: const EdgeInsets.only(top: 8, bottom: 16),
             child: ElevatedButton.icon(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 55),
+                minimumSize: const Size(double.infinity, 45),
                 backgroundColor: AppColors.kPrimaryColor,
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
