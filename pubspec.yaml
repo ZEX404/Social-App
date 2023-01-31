@@ -138,9 +138,9 @@ flutter:
     - family: nunito
       fonts:
         - asset: assets/fonts/Nunito-Regular.ttf
-  #   - family: kufa
-  #     fonts:
-  #       - asset: assets/fonts/zex/kufa.otf
+    - family: poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Bold.ttf
   #   - family: welcome
   #     fonts:
   #       - asset: assets/fonts/zex/welcome.ttf

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:ecommerce_app/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'core/constants/colors.dart';
@@ -38,22 +39,23 @@ class MyApp extends StatelessWidget {
       translations: MyTranslation(),
       debugShowCheckedModeBanner: false,
       title: 'Social App',
-      theme: ThemeData.dark().copyWith(
+      theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: AppColors.kBackground,
         textTheme: TextTheme(
           displayLarge: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 22,
             color: AppColors.kTextColor.withOpacity(0.8),
+            fontFamily: nunito,
           ),
           displayMedium: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 26,
-            color: AppColors.kTextColor.withOpacity(0.8),
-          ),
+              fontWeight: FontWeight.w600,
+              fontSize: 26,
+              color: AppColors.kTextColor.withOpacity(0.8),
+              fontFamily: nunito),
           bodyLarge: const TextStyle(
             color: AppColors.kTextColor,
-            // overflow: TextOverflow.ellipsis,
+            fontFamily: nunito,
             fontSize: 18,
           ),
         ),

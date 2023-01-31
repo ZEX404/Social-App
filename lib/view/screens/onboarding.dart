@@ -13,6 +13,7 @@ import 'package:ecommerce_app/view/widgets/onboarding/slider.dart'
     show OnBoardingSlider;
 import 'package:flutter/material.dart'
     show
+        Animation,
         AnnotatedRegion,
         BackdropFilter,
         BorderRadius,
@@ -43,18 +44,23 @@ import 'package:flutter/material.dart'
         StatefulWidget,
         Text,
         TextAlign,
+        TextInputAction,
         TextOverflow,
         TextSpan,
         TextStyle,
-        Widget;
+        Widget,
+        showGeneralDialog;
 import 'package:flutter/services.dart'
     show Color, FontWeight, Offset, SystemUiOverlayStyle, TextAlign;
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart' show Get, Inst;
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:rive/rive.dart'
     show OneShotAnimation, RiveAnimation, RiveAnimationController;
 import 'package:ecommerce_app/core/services/services.dart'
     show alexandria, isInternetAccess, quoteAuthor, quoteText;
+
+import '../widgets/auth/customtextform.dart';
 
 class OnBoarding extends StatefulWidget {
   const OnBoarding({super.key});
@@ -119,15 +125,21 @@ class _OnBoardingState extends State<OnBoarding> {
     checkConnection.cancel();
   }
 
+  late double height;
+  late double width;
+
   @override
   Widget build(BuildContext context) {
     Get.put(OnBoardingControllerImp());
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.dark.copyWith(
         statusBarColor: AppColors.kBackground,
       ),
       child: SafeArea(
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           body: Stack(
             children: [
               Positioned(
@@ -273,6 +285,63 @@ class _OnBoardingState extends State<OnBoarding> {
                             btnAnimationController: _btnAnimationController,
                             press: () {
                               _btnAnimationController.isActive = true;
+                              showGeneralDialog(
+                                barrierDismissible: true,
+                                barrierLabel: "Sign In",
+                                context: context,
+                                pageBuilder: (BuildContext context,
+                                        Animation<double> _,
+                                        Animation<double> __) =>
+                                    Center(
+                                  child: Container(
+                                    height: height / 1.28,
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: height / 60, horizontal: 24),
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 18),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white.withOpacity(0.9),
+                                      borderRadius: BorderRadius.circular(40),
+                                    ),
+                                    child: Scaffold(
+                                      backgroundColor: Colors.transparent,
+                                      body: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Sign In",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontFamily: 'poppins',
+                                              color: AppColors.kPrimaryColor,
+                                              fontSize: height / 24,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                top: height / 60),
+                                            child: Text(
+                                              "Welcome, Enter your details to sign in or sign up using one of the available methods.",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily: 'poppins',
+                                                color: Colors.black45,
+                                                fontSize: height / 65,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: height / 60),
+                                            child: const SignUpForm(),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
                             },
                           ),
                           Padding(
@@ -310,6 +379,50 @@ class _OnBoardingState extends State<OnBoarding> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class SignUpForm extends StatelessWidget {
+  const SignUpForm({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 8, bottom: 16),
+            child: CustomTextForm(
+              validator: (p0) {
+                return null;
+              },
+              TextInputAction: TextInputAction.next,
+              hintText: "Enter your Email",
+              label: "Email",
+              iconData: "assets/icons/email.svg",
+              myController: TextEditingController(),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8, bottom: 16),
+            child: CustomTextForm(
+              isObsecure: true,
+              validator: (p0) {
+                return null;
+              },
+              TextInputAction: TextInputAction.done,
+              hintText: "Enter your Password",
+              label: "Password",
+              iconData: "assets/icons/password.svg",
+              myController: TextEditingController(),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -121,9 +121,9 @@ class OnBoardingSlider extends GetView<OnBoardingControllerImp> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.black,
-                          fontSize: 16,
+                          fontSize: MediaQuery.of(context).size.height / 48,
                           fontFamily: nunito,
                           shadows: shadows,
                         ),
