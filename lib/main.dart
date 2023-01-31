@@ -1,9 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'core/constants/colors.dart';
 import 'core/localization/changelocale.dart';
 import 'core/localization/translation.dart';
@@ -15,13 +12,9 @@ late SharedPreferences sharedPref;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await initialServices();
-
-  // await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   sharedPref = await SharedPreferences.getInstance();
   HttpOverrides.global = MyHttpOverrides();
-
   runApp(const MyApp());
 }
 
@@ -48,17 +41,17 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: AppColors.kBackground,
         textTheme: TextTheme(
-          displayLarge: GoogleFonts.cairo(
+          displayLarge: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 22,
             color: AppColors.kTextColor.withOpacity(0.8),
           ),
-          displayMedium: GoogleFonts.cairo(
+          displayMedium: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 26,
             color: AppColors.kTextColor.withOpacity(0.8),
           ),
-          bodyLarge: GoogleFonts.cairo(
+          bodyLarge: const TextStyle(
             color: AppColors.kTextColor,
             // overflow: TextOverflow.ellipsis,
             fontSize: 18,

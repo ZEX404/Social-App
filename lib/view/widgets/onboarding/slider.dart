@@ -2,9 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce_app/controller/onboardingcontroller.dart';
 import 'package:ecommerce_app/core/constants/colors.dart';
+import 'package:ecommerce_app/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../../../core/services/services.dart';
 import '../../../data/datasource/static/static.dart';
 
 late double height;
@@ -59,11 +60,42 @@ class OnBoardingSlider extends GetView<OnBoardingControllerImp> {
                       topRight: Radius.circular(15),
                     ),
                   ),
-                  child: CachedNetworkImage(
-                    height: height / 4,
-                    imageUrl: OnBoardingList[i].image!,
-                    fit: BoxFit.fitHeight,
-                  ),
+                  child: isInternetAccess == true
+                      ? CachedNetworkImage(
+                          height: height / 4,
+                          imageUrl: OnBoardingList[i].image!,
+                          fit: BoxFit.fitHeight,
+                        )
+                      : Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Expanded(
+                                flex: 5,
+                                child: SizedBox(),
+                              ),
+                              const SizedBox(
+                                height: 30,
+                                width: 30,
+                                child: CircularProgressIndicator(),
+                              ),
+                              const Expanded(
+                                child: SizedBox(),
+                              ),
+                              Text(
+                                "Waiting for network...",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: alexandria,
+                                ),
+                              ),
+                              const Expanded(
+                                flex: 5,
+                                child: SizedBox(),
+                              ),
+                            ],
+                          ),
+                        ),
                 ),
               ),
               Expanded(
@@ -89,9 +121,10 @@ class OnBoardingSlider extends GetView<OnBoardingControllerImp> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.alexandria(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 16,
+                          fontFamily: nunito,
                           shadows: shadows,
                         ),
                       ),

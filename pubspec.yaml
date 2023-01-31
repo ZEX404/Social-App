@@ -95,8 +95,10 @@ dependencies:
   # flutter_launcher_icons: ^0.11.0
   rive: ^0.10.1
   flutter_svg: ^1.1.6
+  connectivity_plus: ^3.0.2
 
 dev_dependencies:
+  flutter_native_splash: ^2.2.17
   flutter_test:
     sdk: flutter
 
@@ -109,6 +111,10 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+
+flutter_native_splash:
+  image: assets/images/icon.png
+  color: "#42a5f5"
 
 # The following section is specific to Flutter packages.
 flutter:
@@ -125,15 +131,13 @@ flutter:
     - assets/icons/
     - assets/images/
 
-  # fonts:
-  #   - family: Cairo
-  #     fonts:
-  #       - asset: assets/fonts/Cairo/Cairo-Regular.ttf
-  #       - asset: assets/fonts/Cairo/Cairo-Bold.ttf
-  #         # style: bold
-  #   - family: droid
-  #     fonts:
-  #       - asset: assets/fonts/zex/droid.otf
+  fonts:
+    - family: intr
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+    - family: nunito
+      fonts:
+        - asset: assets/fonts/Nunito-Regular.ttf
   #   - family: kufa
   #     fonts:
   #       - asset: assets/fonts/zex/kufa.otf

@@ -1,20 +1,60 @@
-import 'dart:convert';
-import 'dart:math';
-import 'dart:ui';
-import 'package:ecommerce_app/controller/onboardingcontroller.dart';
-import 'package:ecommerce_app/core/constants/colors.dart';
-import 'package:ecommerce_app/view/widgets/onboarding/animatedbtn.dart';
-import 'package:ecommerce_app/view/widgets/onboarding/dotcontroller.dart';
-import 'package:ecommerce_app/view/widgets/onboarding/slider.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:rive/rive.dart';
-import 'package:http/http.dart' as http;
-
-late String author;
-late String text;
+import 'dart:async';
+import 'dart:ui' show Color, FontWeight, ImageFilter, Offset, Shadow, TextAlign;
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:ecommerce_app/controller/onboardingcontroller.dart'
+    show OnBoardingControllerImp;
+import 'package:ecommerce_app/core/constants/colors.dart' show AppColors;
+import 'package:ecommerce_app/core/constants/constants.dart' show nunito;
+import 'package:ecommerce_app/view/widgets/onboarding/animatedbtn.dart'
+    show AnimatedBtn;
+import 'package:ecommerce_app/view/widgets/onboarding/dotcontroller.dart'
+    show DotController;
+import 'package:ecommerce_app/view/widgets/onboarding/slider.dart'
+    show OnBoardingSlider;
+import 'package:flutter/material.dart'
+    show
+        AnnotatedRegion,
+        BackdropFilter,
+        BorderRadius,
+        BoxDecoration,
+        BuildContext,
+        Center,
+        Color,
+        Colors,
+        Column,
+        Container,
+        EdgeInsets,
+        Expanded,
+        FontWeight,
+        Image,
+        MainAxisAlignment,
+        MediaQuery,
+        Offset,
+        Padding,
+        Positioned,
+        RichText,
+        Row,
+        SafeArea,
+        Scaffold,
+        Shadow,
+        SizedBox,
+        Stack,
+        State,
+        StatefulWidget,
+        Text,
+        TextAlign,
+        TextOverflow,
+        TextSpan,
+        TextStyle,
+        Widget;
+import 'package:flutter/services.dart'
+    show Color, FontWeight, Offset, SystemUiOverlayStyle, TextAlign;
+import 'package:get/get.dart' show Get, Inst;
+// import 'package:google_fonts/google_fonts.dart';
+import 'package:rive/rive.dart'
+    show OneShotAnimation, RiveAnimation, RiveAnimationController;
+import 'package:ecommerce_app/core/services/services.dart'
+    show alexandria, isInternetAccess, quoteAuthor, quoteText;
 
 class OnBoarding extends StatefulWidget {
   const OnBoarding({super.key});
@@ -24,42 +64,59 @@ class OnBoarding extends StatefulWidget {
 }
 
 const shadows = [
-  Shadow(offset: Offset(-0.2, -0.2), color: Colors.black),
-  Shadow(offset: Offset(0.2, -0.2), color: Colors.black),
-  Shadow(offset: Offset(0.2, 0.2), color: Colors.black),
-  Shadow(offset: Offset(-0.2, 0.2), color: Colors.black),
+  Shadow(offset: Offset(-0.8, -0.8), color: Colors.black),
+  Shadow(offset: Offset(0.8, -0.8), color: Colors.black),
+  Shadow(offset: Offset(0.8, 0.8), color: Colors.black),
+  Shadow(offset: Offset(-0.8, 0.8), color: Colors.black),
 ];
 
-Future<void> getData() async {
-  final response = await http.get(
-    Uri.parse('https://type.fit/api/quotes'),
-  );
-
-  if (response.statusCode == 200) {
-    int mapLength = (jsonDecode(response.body).length) - 1;
-    Random rnd = Random();
-    int randomQuote = rnd.nextInt(mapLength);
-    dynamic quote = jsonDecode(response.body)[randomQuote];
-    author = quote['author'];
-    text = quote['text'];
-    print("[$randomQuote]\n$author : $text");
-  } else {
-    print('Failed to fetch data');
-  }
-}
+const shadows2 = [
+  Shadow(offset: Offset(-0.4, -0.4), color: Colors.black),
+  Shadow(offset: Offset(0.4, -0.4), color: Colors.black),
+  Shadow(offset: Offset(0.4, 0.4), color: Colors.black),
+  Shadow(offset: Offset(-0.4, 0.4), color: Colors.black),
+];
 
 class _OnBoardingState extends State<OnBoarding> {
   late RiveAnimationController _btnAnimationController;
 
+  checkInternetConnection() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.none) {
+      isInternetAccess = false;
+      // print(isInternetAccess);
+    } else {
+      isInternetAccess = true;
+      // print(isInternetAccess);
+    }
+  }
+
+  late StreamSubscription<ConnectivityResult> checkConnection;
   @override
   void initState() {
     _btnAnimationController = OneShotAnimation(
       "active",
       autoplay: false,
     );
-    getData();
+    checkInternetConnection();
+    checkConnection = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      // Got a new connectivity status!
+      setState(() {
+        isInternetAccess = result.name == "none" ? false : true;
+        // print(isInternetAccess);
+      });
+    });
 
     super.initState();
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+
+    checkConnection.cancel();
   }
 
   @override
@@ -106,15 +163,15 @@ class _OnBoardingState extends State<OnBoarding> {
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             Text(
                               "Social App",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayLarge!
-                                  .copyWith(
-                                    fontSize: 26,
-                                  ),
+                              style: TextStyle(
+                                fontSize: 26,
+                                color: AppColors.kTextColor,
+                                fontFamily: nunito,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ],
                         ),
@@ -135,20 +192,83 @@ class _OnBoardingState extends State<OnBoarding> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         // crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text(
-                                  "",
-                                  textAlign: TextAlign.center,
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  // crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    quoteText == ""
+                                        ? const SizedBox.shrink()
+                                        : Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 10, vertical: 5),
+                                            decoration: BoxDecoration(
+                                                color: Colors.white
+                                                    .withOpacity(0.1),
+                                                borderRadius:
+                                                    BorderRadius.circular(15)),
+                                            child: RichText(
+                                              textAlign: TextAlign.center,
+                                              maxLines: 6,
+                                              overflow: TextOverflow.ellipsis,
+                                              text: TextSpan(
+                                                text: '“',
+                                                style: TextStyle(
+                                                  color: Colors.green,
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 20,
+                                                  fontFamily: alexandria,
+                                                ),
+                                                children: [
+                                                  TextSpan(
+                                                    text: quoteText,
+                                                    style: TextStyle(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255, 82, 79, 79),
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 14,
+                                                      fontFamily: alexandria,
+                                                    ),
+                                                  ),
+                                                  const TextSpan(
+                                                    text: '”',
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      color: Colors.green,
+                                                      fontSize: 20,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 3),
+                                      child: Text(
+                                        quoteAuthor,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.black.withOpacity(0.4),
+                                          fontSize: 10,
+                                          fontFamily: alexandria,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                           ),
-                          const Spacer(),
+                          // const Spacer(),
                           AnimatedBtn(
                             btnAnimationController: _btnAnimationController,
                             press: () {
@@ -163,16 +283,18 @@ class _OnBoardingState extends State<OnBoarding> {
                                 children: [
                                   Text(
                                     "From",
-                                    style: GoogleFonts.alexandria(
+                                    style: TextStyle(
                                       color: Colors.black38,
                                       fontSize: 14,
+                                      fontFamily: alexandria,
                                     ),
                                   ),
                                   Text(
                                     "ZEX99",
-                                    style: GoogleFonts.alexandria(
+                                    style: TextStyle(
                                       color: Colors.indigo,
                                       fontSize: 26,
+                                      fontFamily: alexandria,
                                     ),
                                   ),
                                 ],
