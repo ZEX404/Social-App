@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart'
         GestureDetector,
         Icon,
         MainAxisAlignment,
-        MediaQuery,
         Positioned,
         Row,
         SizedBox,
@@ -35,7 +34,7 @@ class AnimatedBtn extends StatelessWidget {
       onTap: press,
       child: SizedBox(
         height: 56,
-        width: MediaQuery.of(context).size.width / 1.8,
+        width: 200,
         child: Stack(
           children: [
             RiveAnimation.asset(

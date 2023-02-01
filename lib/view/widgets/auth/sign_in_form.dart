@@ -44,8 +44,8 @@ class SignInForm extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 8, bottom: 16),
-            child: ElevatedButton.icon(
+            padding: const EdgeInsets.only(top: 8),
+            child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(double.infinity, 45),
@@ -59,11 +59,7 @@ class SignInForm extends StatelessWidget {
                   ),
                 ),
               ),
-              icon: const Icon(
-                CupertinoIcons.arrow_right,
-                color: Color(0xFFFE0037),
-              ),
-              label: Text(
+              child: Text(
                 "Sign In",
                 style: TextStyle(
                   color: Colors.white,

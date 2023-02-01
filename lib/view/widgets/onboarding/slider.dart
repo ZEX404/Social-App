@@ -51,7 +51,7 @@ class OnBoardingSlider extends GetView<OnBoardingControllerImp> {
                 child: Container(
                   width: width,
                   decoration: BoxDecoration(
-                    color: AppColors.kPrimaryColor.withOpacity(0.4),
+                    color: AppColors.kPrimaryColor.withOpacity(0.1),
                     border: Border.all(
                       color: AppColors.kBackground.withOpacity(0.6),
                     ),
