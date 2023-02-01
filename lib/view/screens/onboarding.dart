@@ -66,6 +66,7 @@ class OnBoarding extends StatefulWidget {
 }
 
 bool isSignInDialogueShown = false;
+bool isSignUpDialogueShown = false;
 
 const shadows = [
   Shadow(offset: Offset(-0.8, -0.8), color: Colors.black),

@@ -27,66 +27,66 @@
 // }
 
 // class _LoginState extends State<Login> {
-//   GlobalKey<FormState> formstate = GlobalKey();
-//   TextEditingController emailController = TextEditingController();
-//   TextEditingController passwordController = TextEditingController();
-//   bool isLoading = false;
-//   Crud crud = Crud();
+  // GlobalKey<FormState> formstate = GlobalKey();
+  // TextEditingController emailController = TextEditingController();
+  // TextEditingController passwordController = TextEditingController();
+  // bool isLoading = false;
+  // Crud crud = Crud();
 
-//   login() async {
-//     if (formstate.currentState!.validate()) {
-//       if (mounted) {
-//         setState(() {
-//           isLoading = true;
-//         });
-//       }
-//       var response = await crud.postRequest(loginLink, {
-//         "email": emailController.text.trim(),
-//         "password": passwordController.text,
-//       });
+  // login() async {
+  //   if (formstate.currentState!.validate()) {
+  //     if (mounted) {
+  //       setState(() {
+  //         isLoading = true;
+  //       });
+  //     }
+  //     var response = await crud.postRequest(loginLink, {
+  //       "email": emailController.text.trim(),
+  //       "password": passwordController.text,
+  //     });
 
-//       if (response['status'] == 'success') {
-//         sharedPref.setString("email", emailController.text.trim());
-//         sharedPref.setString("password", passwordController.text);
-//         addcontrollersuccess();
-//         await Future.delayed(const Duration(seconds: 3));
-//         Get.offAllNamed(AppRoutes.home);
-//       } else {
-//         final snackbar = SnackBar(
-//           backgroundColor: Colors.white.withOpacity(0.8),
-//           showCloseIcon: true,
-//           closeIconColor: Colors.red,
-//           margin: const EdgeInsets.all(8),
-//           behavior: SnackBarBehavior.floating,
-//           shape: const RoundedRectangleBorder(
-//             side: BorderSide(
-//               color: Colors.red,
-//             ),
-//             borderRadius: BorderRadius.all(
-//               Radius.circular(20),
-//             ),
-//           ),
-//           content: Text(
-//             response['message'],
-//             style: GoogleFonts.alexandria(
-//               color: Colors.red,
-//             ),
-//           ),
-//           duration: const Duration(seconds: 5),
-//         );
-//         // ignore: use_build_context_synchronously
-//         ScaffoldMessenger.of(context).showSnackBar(snackbar);
-//         addcontrollerfail();
-//       }
-//       if (mounted) {
-//         setState(() {
-//           isLoading = false;
-//         });
-//       }
-//     } else {
-//       addcontrollerfail();
-//     }
-//   }
+  //     if (response['status'] == 'success') {
+  //       sharedPref.setString("email", emailController.text.trim());
+  //       sharedPref.setString("password", passwordController.text);
+  //       addcontrollersuccess();
+  //       await Future.delayed(const Duration(seconds: 3));
+  //       Get.offAllNamed(AppRoutes.home);
+  //     } else {
+  //       final snackbar = SnackBar(
+  //         backgroundColor: Colors.white.withOpacity(0.8),
+  //         showCloseIcon: true,
+  //         closeIconColor: Colors.red,
+  //         margin: const EdgeInsets.all(8),
+  //         behavior: SnackBarBehavior.floating,
+  //         shape: const RoundedRectangleBorder(
+  //           side: BorderSide(
+  //             color: Colors.red,
+  //           ),
+  //           borderRadius: BorderRadius.all(
+  //             Radius.circular(20),
+  //           ),
+  //         ),
+  //         content: Text(
+  //           response['message'],
+  //           style: GoogleFonts.alexandria(
+  //             color: Colors.red,
+  //           ),
+  //         ),
+  //         duration: const Duration(seconds: 5),
+  //       );
+  //       // ignore: use_build_context_synchronously
+  //       ScaffoldMessenger.of(context).showSnackBar(snackbar);
+  //       addcontrollerfail();
+  //     }
+  //     if (mounted) {
+  //       setState(() {
+  //         isLoading = false;
+  //       });
+  //     }
+  //   } else {
+  //     addcontrollerfail();
+  //   }
+  // }
 
 //   bool isObsecure = true;
 
@@ -259,17 +259,17 @@
 //                     label: "Email",
 //                     // iconData: Icons.email_outlined,
 //                     myController: emailController,
-//                     validator: (val) {
-//                       return validInput(val!, 1, 50, "email");
-//                     },
+                    // validator: (val) {
+                    //   return validInput(val!, 1, 50, "email");
+                    // },
 //                   ),
 //                   const SizedBox(height: 15),
 //                   TextFormField(
 //                     obscureText: isObsecure,
 //                     focusNode: passwordFocusNode,
-//                     validator: (val) {
-//                       return validInput(val!, 1, 50, "password");
-//                     },
+                    // validator: (val) {
+                    //   return validInput(val!, 1, 50, "password");
+                    // },
 //                     controller: passwordController,
 //                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
 //                           color: Colors.black,

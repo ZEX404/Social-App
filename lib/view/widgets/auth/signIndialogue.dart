@@ -1,11 +1,14 @@
 // ignore_for_file: file_names
 
+import 'package:ecommerce_app/view/widgets/auth/SignUpDialogue.dart';
 import 'package:flutter/material.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/services/services.dart';
 import '../../screens/onboarding.dart';
 import '../onboarding/slider.dart';
 import 'sign_in_form.dart';
+
+bool isShowLoading = false;
 
 Future<Object?> customSignInDialogue(BuildContext context) {
   return showGeneralDialog(
@@ -67,7 +70,7 @@ Future<Object?> customSignInDialogue(BuildContext context) {
                           padding: EdgeInsets.only(
                               top: height / 60, bottom: height / 80),
                           child: Text(
-                            "Welcome, Enter your details to sign in",
+                            "Sign in to your account and continue exploring all the features and benefits",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: alexandria,
@@ -96,78 +99,49 @@ Future<Object?> customSignInDialogue(BuildContext context) {
                             ],
                           ),
                         ),
-                        ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(double.infinity, 45),
-                            backgroundColor:
-                                const Color.fromARGB(255, 100, 226, 100),
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(25),
-                                bottomRight: Radius.circular(25),
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(25),
-                              ),
-                            ),
-                          ),
+                        // ElevatedButton(
+                        //   onPressed: () {
+                        //     Navigator.pop(context);
+                        //     customSignUpDialogue(context);
+                        //     isSignUpDialogueShown = true;
+                        //   },
+                        //   style: ElevatedButton.styleFrom(
+                        //     minimumSize: const Size(double.infinity, 45),
+                        //     backgroundColor:
+                        //         const Color.fromARGB(255, 100, 226, 100),
+                        //     shape: const RoundedRectangleBorder(
+                        //       borderRadius: BorderRadius.only(
+                        //         bottomLeft: Radius.circular(25),
+                        //         bottomRight: Radius.circular(25),
+                        //         topLeft: Radius.circular(10),
+                        //         topRight: Radius.circular(25),
+                        //       ),
+                        //     ),
+                        //   ),
+                        //   child: Text(
+                        //     "Create new account",
+                        //     style: TextStyle(
+                        //       color: Colors.white,
+                        //       fontSize: 18,
+                        //       fontFamily: alexandria,
+                        //     ),
+                        //   ),
+                        // ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                            customSignUpDialogue(context);
+                            isSignUpDialogueShown = true;
+                          },
                           child: Text(
                             "Create new account",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: AppColors.kTextColor,
                               fontSize: 18,
                               fontFamily: alexandria,
                             ),
                           ),
-                        ),
-                        // Column(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     Padding(
-                        //       padding:
-                        //           EdgeInsets.symmetric(vertical: height / 60),
-                        //       child: Text(
-                        //         "Sign up with Email, Apple or Google",
-                        //         style: TextStyle(
-                        //           color: Colors.black45,
-                        //           fontFamily: alexandria,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //     Row(
-                        //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //       children: [
-                        //         IconButton(
-                        //           onPressed: () {},
-                        //           padding: EdgeInsets.zero,
-                        //           icon: SvgPicture.asset(
-                        //             'assets/icons/email_box.svg',
-                        //             height: 60,
-                        //             width: 60,
-                        //           ),
-                        //         ),
-                        //         IconButton(
-                        //           onPressed: () {},
-                        //           padding: EdgeInsets.zero,
-                        //           icon: SvgPicture.asset(
-                        //             'assets/icons/apple_box.svg',
-                        //             height: 60,
-                        //             width: 60,
-                        //           ),
-                        //         ),
-                        //         IconButton(
-                        //           onPressed: () {},
-                        //           padding: EdgeInsets.zero,
-                        //           icon: SvgPicture.asset(
-                        //             'assets/icons/google_box.svg',
-                        //             height: 60,
-                        //             width: 60,
-                        //           ),
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ],
-                        // )
+                        )
                       ],
                     ),
                   ],
@@ -180,6 +154,9 @@ Future<Object?> customSignInDialogue(BuildContext context) {
     ),
   ).then((value) {
     isSignInDialogueShown = false;
+    if (isShowLoading) {
+      isShowLoading = false;
+    }
     return null;
   });
 }
