@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:rive/rive.dart';
-import '../../../core/class/crud.dart';
-import '../../../core/constants/apilinks.dart';
-import '../../../core/constants/colors.dart';
-import '../../../core/constants/routes.dart';
-import '../../../core/functions/validinput.dart';
-import '../../../core/services/services.dart';
-import '../../../main.dart';
-import 'customtextform.dart';
+import '../../../../core/class/crud.dart';
+import '../../../../core/constants/apilinks.dart';
+import '../../../../core/constants/colors.dart';
+import '../../../../core/constants/routes.dart';
+import '../../../../core/functions/validinput.dart';
+import '../../../../core/services/services.dart';
+import '../../../../main.dart';
+import '../customtextform.dart';
 import 'signIndialogue.dart';
 
 FToast fToast = FToast();
@@ -43,7 +43,7 @@ class _SignInFormState extends State<SignInForm> {
 
   _showToast(String message) {
     Widget toast = Padding(
-      padding: const EdgeInsets.only(top: 90),
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 7.5),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 2.0),
         decoration: BoxDecoration(

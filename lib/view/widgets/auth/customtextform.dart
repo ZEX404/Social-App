@@ -8,25 +8,27 @@ import '../../../core/constants/colors.dart';
 class CustomTextForm extends StatelessWidget {
   final String hintText;
   final String label;
-  final String iconData;
+  final String? iconData;
   final TextInputAction;
   final TextEditingController myController;
   final String? Function(String?) validator;
   final FocusNode? focusNode;
   final Function(String)? onChanged;
   final bool? isObsecure;
+  final IconData? icon;
 
   const CustomTextForm({
     super.key,
     required this.hintText,
     required this.label,
-    required this.iconData,
+    this.iconData,
     required this.TextInputAction,
     required this.myController,
     required this.validator,
     this.focusNode,
     this.onChanged,
     this.isObsecure,
+    this.icon,
   });
 
   @override
@@ -38,9 +40,10 @@ class CustomTextForm extends StatelessWidget {
       validator: validator,
       controller: myController,
       style: TextStyle(
-          color: AppColors.kTextColor.withOpacity(0.6),
+          color: const Color.fromARGB(255, 20, 79, 176).withOpacity(0.9),
           fontSize: 17,
-          fontFamily: nunito),
+          fontFamily: nunito,
+          fontWeight: FontWeight.bold),
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction,
       decoration: InputDecoration(
@@ -76,12 +79,17 @@ class CustomTextForm extends StatelessWidget {
           ),
         ),
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        prefixIcon: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: SvgPicture.asset(
-            iconData,
-          ),
-        ),
+        prefixIcon: icon == null
+            ? Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: SvgPicture.asset(
+                  iconData!,
+                ),
+              )
+            : Icon(
+                icon,
+                color: const Color.fromARGB(255, 20, 79, 176).withOpacity(0.9),
+              ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
           borderSide: const BorderSide(color: AppColors.kTextColor),

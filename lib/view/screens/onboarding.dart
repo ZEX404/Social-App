@@ -11,7 +11,7 @@ import 'package:ecommerce_app/view/widgets/onboarding/dotcontroller.dart'
     show DotController;
 import 'package:ecommerce_app/view/widgets/onboarding/slider.dart'
     show OnBoardingSlider;
-import 'package:ecommerce_app/view/widgets/auth/signIndialogue.dart';
+import 'package:ecommerce_app/view/widgets/auth/signin.dart/signIndialogue.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart'
     show
