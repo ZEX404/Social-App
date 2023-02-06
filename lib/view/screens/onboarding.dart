@@ -3,6 +3,7 @@ import 'dart:ui' show Color, FontWeight, ImageFilter, Offset, Shadow, TextAlign;
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:ecommerce_app/controller/onboardingcontroller.dart'
     show OnBoardingControllerImp;
+import 'package:ecommerce_app/core/class/scrollbehavier.dart';
 import 'package:ecommerce_app/core/constants/colors.dart' show AppColors;
 import 'package:ecommerce_app/core/constants/constants.dart' show nunito;
 import 'package:ecommerce_app/view/widgets/onboarding/animatedbtn.dart'
@@ -11,7 +12,7 @@ import 'package:ecommerce_app/view/widgets/onboarding/dotcontroller.dart'
     show DotController;
 import 'package:ecommerce_app/view/widgets/onboarding/slider.dart'
     show OnBoardingSlider;
-import 'package:ecommerce_app/view/screens/auth/signin.dart/signIndialogue.dart';
+import 'package:ecommerce_app/view/screens/auth/signin.dart/sign_in_dialogue.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart'
     show
@@ -38,7 +39,9 @@ import 'package:flutter/material.dart'
         Row,
         SafeArea,
         Scaffold,
+        ScrollConfiguration,
         Shadow,
+        SingleChildScrollView,
         SizedBox,
         Stack,
         State,
@@ -199,7 +202,8 @@ class _OnBoardingState extends State<OnBoarding> {
                   Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 15),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
@@ -237,125 +241,146 @@ class _OnBoardingState extends State<OnBoarding> {
                                   horizontal: 20, vertical: 10),
                               child: SizedBox(
                                 width: MediaQuery.of(context).size.width,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  // crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    quoteText == ""
-                                        ? const SizedBox.shrink()
-                                        : Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 10, vertical: 5),
-                                            decoration: BoxDecoration(
-                                                color: Colors.white
-                                                    .withOpacity(0.1),
-                                                borderRadius:
-                                                    BorderRadius.circular(15)),
-                                            child: RichText(
-                                              textAlign: TextAlign.center,
-                                              maxLines: 6,
-                                              overflow: TextOverflow.ellipsis,
-                                              text: TextSpan(
-                                                text: '“',
-                                                style: TextStyle(
-                                                  color: Colors.green,
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 20,
-                                                  fontFamily: alexandria,
+                                child: Center(
+                                  child: ScrollConfiguration(
+                                    behavior: MyBehavior(),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        // crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          quoteText == ""
+                                              ? const SizedBox.shrink()
+                                              : Container(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 5),
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.white
+                                                          .withOpacity(0.1),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15)),
+                                                  child: RichText(
+                                                    textAlign: TextAlign.center,
+                                                    maxLines: 6,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    text: TextSpan(
+                                                      text: '“',
+                                                      style: TextStyle(
+                                                        color: Colors.green,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                        fontSize: 20,
+                                                        fontFamily: alexandria,
+                                                      ),
+                                                      children: [
+                                                        TextSpan(
+                                                          text: quoteText,
+                                                          style: TextStyle(
+                                                            color: const Color
+                                                                    .fromARGB(
+                                                                255,
+                                                                82,
+                                                                79,
+                                                                79),
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontSize: 14,
+                                                            fontFamily:
+                                                                alexandria,
+                                                          ),
+                                                        ),
+                                                        const TextSpan(
+                                                          text: '”',
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            color: Colors.green,
+                                                            fontSize: 20,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
                                                 ),
-                                                children: [
-                                                  TextSpan(
-                                                    text: quoteText,
-                                                    style: TextStyle(
-                                                      color:
-                                                          const Color.fromARGB(
-                                                              255, 82, 79, 79),
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 14,
-                                                      fontFamily: alexandria,
-                                                    ),
-                                                  ),
-                                                  const TextSpan(
-                                                    text: '”',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      color: Colors.green,
-                                                      fontSize: 20,
-                                                    ),
-                                                  ),
-                                                ],
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 10, vertical: 3),
+                                            child: Text(
+                                              quoteAuthor,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Colors.black
+                                                    .withOpacity(0.4),
+                                                fontSize: 10,
+                                                fontFamily: alexandria,
                                               ),
                                             ),
                                           ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 3),
-                                      child: Text(
-                                        quoteAuthor,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: Colors.black.withOpacity(0.4),
-                                          fontSize: 10,
-                                          fontFamily: alexandria,
-                                        ),
+                                        ],
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                           // const Spacer(),
-                          AnimatedBtn(
-                            btnAnimationController: _btnAnimationController,
-                            press: () {
-                              if (isInternetAccess == true) {
-                                if (isSignInDialogueShown == false) {
-                                  _btnAnimationController.isActive = true;
-                                  setState(() {
-                                    isSignInDialogueShown = true;
-                                  });
-                                  Future.delayed(
-                                    const Duration(milliseconds: 760),
-                                    () {
-                                      customSignInDialogue(context);
-                                    },
-                                  );
-                                }
-                              } else {
-                                // ignore: avoid_print
-                                print("no internet");
-                              }
-                            },
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 30),
-                            child: Center(
-                              child: Column(
-                                // crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "From",
-                                    style: TextStyle(
-                                      color: Colors.black38,
-                                      fontSize: 14,
-                                      fontFamily: alexandria,
+                          SingleChildScrollView(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AnimatedBtn(
+                                  btnAnimationController:
+                                      _btnAnimationController,
+                                  press: () {
+                                    if (isSignInDialogueShown == false) {
+                                      _btnAnimationController.isActive = true;
+                                      setState(() {
+                                        isSignInDialogueShown = true;
+                                      });
+                                      Future.delayed(
+                                        const Duration(milliseconds: 760),
+                                        () {
+                                          customSignInDialogue(context);
+                                        },
+                                      );
+                                    }
+                                  },
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 30),
+                                  child: Center(
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          "From",
+                                          style: TextStyle(
+                                            color: Colors.black38,
+                                            fontSize: 14,
+                                            fontFamily: alexandria,
+                                          ),
+                                        ),
+                                        Text(
+                                          "ZEX99",
+                                          style: TextStyle(
+                                            color: Colors.indigo,
+                                            fontSize: 26,
+                                            fontFamily: alexandria,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  Text(
-                                    "ZEX99",
-                                    style: TextStyle(
-                                      color: Colors.indigo,
-                                      fontSize: 26,
-                                      fontFamily: alexandria,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ),

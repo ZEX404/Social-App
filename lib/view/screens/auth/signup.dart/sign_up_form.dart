@@ -143,10 +143,10 @@ class _SignUpFormState extends State<SignUpForm> {
                 backgroundColor: const Color.fromARGB(255, 100, 226, 100),
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(25),
-                    bottomRight: Radius.circular(25),
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
                     topLeft: Radius.circular(10),
-                    topRight: Radius.circular(25),
+                    topRight: Radius.circular(10),
                   ),
                 ),
               ),

@@ -1,19 +1,22 @@
-import 'package:ecommerce_app/view/screens/auth/signup.dart/sign_up_form.dart';
-import 'package:flutter/material.dart';
 import '../../../../core/class/scrollbehavier.dart';
-import '../../../../core/constants/colors.dart' show AppColors;
-import '../../../../core/services/services.dart' show alexandria;
-import '../../onboarding.dart' show isSignUpDialogueShown;
+import '../signup.dart/sign_up_dialogue.dart';
+import 'package:flutter/material.dart';
+import '../../../../core/constants/colors.dart';
+import '../../../../core/services/services.dart';
+import '../../onboarding.dart';
 import '../../../widgets/onboarding/slider.dart';
+import 'sign_in_form.dart';
 
-Future<Object?> customSignUpDialogue(BuildContext context) {
+bool isShowLoading = false;
+
+Future<Object?> customSignInDialogue(BuildContext context) {
   return showGeneralDialog(
-    barrierLabel: "Sign Up",
+    barrierLabel: "Sign In",
     context: context,
     transitionDuration: const Duration(milliseconds: 400),
     transitionBuilder: (_, animation, __, child) {
       Tween<Offset> tween;
-      tween = Tween(begin: const Offset(0, 1), end: Offset.zero);
+      tween = Tween(begin: const Offset(0, -1), end: Offset.zero);
       return SlideTransition(
         position: tween.animate(
           CurvedAnimation(
@@ -62,7 +65,7 @@ Future<Object?> customSignUpDialogue(BuildContext context) {
                               children: [
                                 const SizedBox(height: 12),
                                 Text(
-                                  "Sign Up",
+                                  "Sign In",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontFamily: alexandria,
@@ -72,7 +75,7 @@ Future<Object?> customSignUpDialogue(BuildContext context) {
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
-                                  "Fill the fields to create your account",
+                                  "Hi there! Enter your details to login",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontFamily: alexandria,
@@ -80,8 +83,38 @@ Future<Object?> customSignUpDialogue(BuildContext context) {
                                   ),
                                 ),
                                 const SizedBox(height: 8),
-                                const SignUpForm(),
+                                const SignInForm(),
                                 const SizedBox(height: 12),
+                                Row(
+                                  children: [
+                                    const Expanded(child: Divider()),
+                                    Text(
+                                      "OR",
+                                      style: TextStyle(
+                                        color: Colors.black26,
+                                        fontFamily: alexandria,
+                                      ),
+                                    ),
+                                    const Expanded(child: Divider()),
+                                  ],
+                                ),
+                                const SizedBox(height: 6),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                    customSignUpDialogue(context);
+                                    isSignUpDialogueShown = true;
+                                  },
+                                  child: Text(
+                                    "Create new account",
+                                    style: TextStyle(
+                                      color: AppColors.kTextColor,
+                                      fontSize: 18,
+                                      fontFamily: alexandria,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 14),
                               ],
                             ),
                           ),
@@ -97,7 +130,10 @@ Future<Object?> customSignUpDialogue(BuildContext context) {
       ),
     ),
   ).then((value) {
-    isSignUpDialogueShown = false;
+    isSignInDialogueShown = false;
+    if (isShowLoading) {
+      isShowLoading = false;
+    }
     return null;
   });
 }

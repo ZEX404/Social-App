@@ -10,7 +10,7 @@ import '../../../../core/functions/validinput.dart';
 import '../../../../core/services/services.dart';
 import '../../../../main.dart';
 import '../../../widgets/auth/customtextform.dart';
-import 'signIndialogue.dart';
+import 'sign_in_dialogue.dart';
 
 FToast fToast = FToast();
 
@@ -42,28 +42,25 @@ class _SignInFormState extends State<SignInForm> {
   }
 
   _showToast(String message) {
-    Widget toast = Padding(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 7.5),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 2.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15.0),
-          color: AppColors.kBackground.withOpacity(0.7),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              message,
-              style: TextStyle(
-                fontFamily: alexandria,
-                color: Colors.red,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              ),
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.0),
+        color: AppColors.kBackground.withOpacity(0.7),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            message,
+            style: TextStyle(
+              fontFamily: alexandria,
+              color: Colors.red,
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
     if (mounted) {
@@ -72,10 +69,9 @@ class _SignInFormState extends State<SignInForm> {
         () {
           fToast.showToast(
             child: toast,
-            gravity: ToastGravity.CENTER,
+            gravity: ToastGravity.BOTTOM,
             toastDuration: const Duration(milliseconds: 1400),
           );
-          isShowLoading = false;
         },
       );
     }
@@ -219,10 +215,10 @@ class _SignInFormState extends State<SignInForm> {
                     backgroundColor: AppColors.kPrimaryColor,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(25),
-                        bottomRight: Radius.circular(25),
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
                         topLeft: Radius.circular(10),
-                        topRight: Radius.circular(25),
+                        topRight: Radius.circular(10),
                       ),
                     ),
                   ),

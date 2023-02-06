@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       locale: controller.language,
       translations: MyTranslation(),
       debugShowCheckedModeBanner: false,
-      title: 'Social App',
+      title: 'IStudy',
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: AppColors.kBackground,
         textTheme: TextTheme(
