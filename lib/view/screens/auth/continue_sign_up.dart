@@ -5,6 +5,7 @@ import 'dart:ui';
 
 import 'package:ecommerce_app/core/services/services.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rive/rive.dart';
@@ -15,7 +16,6 @@ import '../../../core/constants/apilinks.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/routes.dart';
 import '../../../core/functions/validinput.dart';
-import '../../widgets/auth/custombuttonauth.dart';
 import '../../widgets/auth/customtextform.dart';
 
 late double height;
@@ -91,146 +91,100 @@ class _ContinueSignUpScreenState extends State<ContinueSignUpScreen> {
   TextEditingController passwordController = TextEditingController();
 
   signUp() async {
-    if (formstate.currentState!.validate()) {
-      if (valueChoose == null) {
-        final snackbar = SnackBar(
-          backgroundColor: Colors.white.withOpacity(0.8),
-          showCloseIcon: true,
-          closeIconColor: Colors.red,
-          margin: const EdgeInsets.all(8),
-          behavior: SnackBarBehavior.floating,
-          shape: const RoundedRectangleBorder(
-            side: BorderSide(
-              color: Colors.red,
-            ),
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-          content: Text(
-            "Select your gender",
-            style: TextStyle(color: Colors.red, fontFamily: alexandria),
-          ),
-          duration: const Duration(seconds: 5),
-        );
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(snackbar);
-      } else {
-        if (mounted) {
-          setState(() {
-            isLoading = true;
-          });
-        }
-
-        if (valueChoose == 'Male') {
-          imageUrl = '$uploadServerLink/man.png';
-        } else if (valueChoose == 'Female') {
-          imageUrl = '$uploadServerLink/woman.png';
+    try {
+      if (formstate.currentState!.validate()) {
+        valueChoose = 'Male';
+        if (valueChoose == null) {
+          _showToast('Select your gender');
         } else {
-          imageUrl = '$uploadServerLink/man.png';
-        }
-
-        var response = await _crud.postRequest(signupLink, {
-          "firstname": firstnameController.text.trim(),
-          "lastname": lastnameController.text.trim(),
-          "username": usernameController.text.trim(),
-          "email": emailController.text.trim(),
-          "password": passwordController.text,
-          "phone": phoneController.text.trim(),
-          "gender": valueChoose,
-          "profilepic": imageUrl,
-        });
-
-        if (response['status'] == 'success') {
-          Get.offAllNamed(AppRoutes.home);
-        } else if (response['status'] == 'failure') {
-          if (response['message'] == 'Email already exist') {
-            // Email already exist
-            final snackbar = SnackBar(
-              backgroundColor: Colors.white.withOpacity(0.8),
-              showCloseIcon: true,
-              closeIconColor: Colors.red,
-              margin: const EdgeInsets.all(8),
-              behavior: SnackBarBehavior.floating,
-              shape: const RoundedRectangleBorder(
-                side: BorderSide(
-                  color: Colors.red,
-                ),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Text(
-                response['message'],
-                style: TextStyle(color: Colors.red, fontFamily: alexandria),
-              ),
-              duration: const Duration(seconds: 5),
-            );
-            // ignore: use_build_context_synchronously
-            ScaffoldMessenger.of(context).showSnackBar(snackbar);
-          } else if (response['message'] == 'Phone already exist') {
-            // Phone already exist
-            final snackbar = SnackBar(
-              backgroundColor: Colors.white.withOpacity(0.8),
-              showCloseIcon: true,
-              closeIconColor: Colors.red,
-              margin: const EdgeInsets.all(8),
-              behavior: SnackBarBehavior.floating,
-              shape: const RoundedRectangleBorder(
-                side: BorderSide(
-                  color: Colors.red,
-                ),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Text(
-                response['message'],
-                style: TextStyle(color: Colors.red, fontFamily: alexandria),
-              ),
-              duration: const Duration(seconds: 5),
-            );
-            // ignore: use_build_context_synchronously
-            ScaffoldMessenger.of(context).showSnackBar(snackbar);
-          } else if (response['message'] == 'Username already exist') {
-            // Username already exist
-            final snackbar = SnackBar(
-              backgroundColor: Colors.white.withOpacity(0.8),
-              showCloseIcon: true,
-              closeIconColor: Colors.red,
-              margin: const EdgeInsets.all(8),
-              behavior: SnackBarBehavior.floating,
-              shape: const RoundedRectangleBorder(
-                side: BorderSide(
-                  color: Colors.red,
-                ),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Text(
-                response['message'],
-                style: TextStyle(color: Colors.red, fontFamily: alexandria),
-              ),
-              duration: const Duration(seconds: 5),
-            );
-            // ignore: use_build_context_synchronously
-            ScaffoldMessenger.of(context).showSnackBar(snackbar);
+          if (valueChoose == 'Male') {
+            imageUrl = '$uploadServerLink/man.png';
+          } else if (valueChoose == 'Female') {
+            imageUrl = '$uploadServerLink/woman.png';
+          } else {
+            imageUrl = '$uploadServerLink/man.png';
           }
-        } else {
-          // print(response);
-        }
-        if (mounted) {
-          setState(() {
-            isLoading = false;
+
+          var response = await _crud.postRequest(signupLink, {
+            "firstname": firstnameController.text.trim(),
+            "lastname": lastnameController.text.trim(),
+            "username": usernameController.text.trim(),
+            "email": emailController.text.trim(),
+            "password": passwordController.text,
+            "phone": phoneController.text.trim(),
+            "gender": valueChoose,
+            "profilepic": imageUrl,
           });
+
+          if (response['status'] == 'success') {
+            Get.offAllNamed(AppRoutes.home);
+          } else if (response['status'] == 'failure') {
+            if (response['message'] == 'Email already exist') {
+              // Email already exist
+              _showToast("This email is used");
+            } else if (response['message'] == 'Phone already exist') {
+              // Phone already exist
+              _showToast("This phone number is used");
+            } else if (response['message'] == 'Username already exist') {
+              // Username already exist
+              _showToast("This username is used");
+            }
+          } else {
+            // print(response);
+          }
         }
       }
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+    }
+    if (mounted) {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  FToast fToast = FToast();
+  _showToast(String message) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.0),
+        color: AppColors.kBackground.withOpacity(0.7),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            message,
+            style: TextStyle(
+              fontFamily: alexandria,
+              color: Colors.red,
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+    if (mounted) {
+      Future.delayed(
+        const Duration(milliseconds: 500),
+        () {
+          fToast.showToast(
+            child: toast,
+            gravity: ToastGravity.BOTTOM,
+            toastDuration: const Duration(milliseconds: 1400),
+          );
+        },
+      );
     }
   }
 
   @override
   void initState() {
+    fToast.init(context);
     emailController.text = widget.email;
     passwordController.text = widget.password;
 
@@ -541,96 +495,96 @@ class _ContinueSignUpScreenState extends State<ContinueSignUpScreen> {
                                       //   },
                                       // ),
                                       // const SizedBox(height: 20),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: AppColors.kTextColor
-                                                .withOpacity(0.5),
-                                            width: 0.5,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10.0),
-                                              child: valueChoose == null
-                                                  ? Image.asset(
-                                                      'assets/images/gender.png',
-                                                      height: 25,
-                                                    )
-                                                  : valueChoose == 'Male'
-                                                      ? Image.asset(
-                                                          'assets/images/male.png',
-                                                          height: 25,
-                                                        )
-                                                      : Image.asset(
-                                                          'assets/images/female.png',
-                                                          height: 25,
-                                                        ),
-                                            ),
-                                            const SizedBox(
-                                              width: 8,
-                                            ),
-                                            Expanded(
-                                              child: DropdownButton(
-                                                hint: Center(
-                                                  child: Text(
-                                                    'Select your gender',
-                                                    style: TextStyle(
-                                                        color: AppColors
-                                                            .kTextColor,
-                                                        fontFamily: alexandria,
-                                                        fontSize: 20),
-                                                  ),
-                                                ),
-                                                elevation: 0,
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                dropdownColor: Colors
-                                                    .transparent
-                                                    .withOpacity(0.8),
-                                                icon: const Icon(
-                                                  Icons.arrow_drop_down,
-                                                  color: AppColors.kTextColor,
-                                                ),
-                                                iconSize: 36,
-                                                isExpanded: true,
-                                                underline: const SizedBox(),
-                                                value: valueChoose,
-                                                onChanged: (newValue) {
-                                                  setState(() {
-                                                    valueChoose =
-                                                        newValue as String?;
-                                                  });
-                                                },
-                                                items: listGenders
-                                                    .map((valueItem) {
-                                                  return DropdownMenuItem(
-                                                    value: valueItem,
-                                                    child: Center(
-                                                      child: Text(
-                                                        valueItem,
-                                                        style: TextStyle(
-                                                            color: AppColors
-                                                                .kTextColor,
-                                                            fontFamily:
-                                                                alexandria,
-                                                            fontSize: 20),
-                                                      ),
-                                                    ),
-                                                  );
-                                                }).toList(),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 8,
-                                      )
+                                      // Container(
+                                      //   decoration: BoxDecoration(
+                                      //     border: Border.all(
+                                      //       color: AppColors.kTextColor
+                                      //           .withOpacity(0.5),
+                                      //       width: 0.5,
+                                      //     ),
+                                      //     borderRadius:
+                                      //         BorderRadius.circular(20),
+                                      //   ),
+                                      //   child: Row(
+                                      //     children: [
+                                      //       Padding(
+                                      //         padding: const EdgeInsets.only(
+                                      //             left: 10.0),
+                                      //         child: valueChoose == null
+                                      //             ? Image.asset(
+                                      //                 'assets/images/gender.png',
+                                      //                 height: 25,
+                                      //               )
+                                      //             : valueChoose == 'Male'
+                                      //                 ? Image.asset(
+                                      //                     'assets/images/male.png',
+                                      //                     height: 25,
+                                      //                   )
+                                      //                 : Image.asset(
+                                      //                     'assets/images/female.png',
+                                      //                     height: 25,
+                                      //                   ),
+                                      //       ),
+                                      //       const SizedBox(
+                                      //         width: 8,
+                                      //       ),
+                                      //       Expanded(
+                                      //         child: DropdownButton(
+                                      //           hint: Center(
+                                      //             child: Text(
+                                      //               'Select your gender',
+                                      //               style: TextStyle(
+                                      //                   color: AppColors
+                                      //                       .kTextColor,
+                                      //                   fontFamily: alexandria,
+                                      //                   fontSize: 20),
+                                      //             ),
+                                      //           ),
+                                      //           elevation: 0,
+                                      //           borderRadius:
+                                      //               BorderRadius.circular(5),
+                                      //           dropdownColor: Colors
+                                      //               .transparent
+                                      //               .withOpacity(0.8),
+                                      //           icon: const Icon(
+                                      //             Icons.arrow_drop_down,
+                                      //             color: AppColors.kTextColor,
+                                      //           ),
+                                      //           iconSize: 36,
+                                      //           isExpanded: true,
+                                      //           underline: const SizedBox(),
+                                      //           value: valueChoose,
+                                      //           onChanged: (newValue) {
+                                      //             setState(() {
+                                      //               valueChoose =
+                                      //                   newValue as String?;
+                                      //             });
+                                      //           },
+                                      //           items: listGenders
+                                      //               .map((valueItem) {
+                                      //             return DropdownMenuItem(
+                                      //               value: valueItem,
+                                      //               child: Center(
+                                      //                 child: Text(
+                                      //                   valueItem,
+                                      //                   style: TextStyle(
+                                      //                       color: AppColors
+                                      //                           .kTextColor,
+                                      //                       fontFamily:
+                                      //                           alexandria,
+                                      //                       fontSize: 20),
+                                      //                 ),
+                                      //               ),
+                                      //             );
+                                      //           }).toList(),
+                                      //         ),
+                                      //       ),
+                                      //     ],
+                                      //   ),
+                                      // ),
+                                      // const SizedBox(
+                                      //   height: 8,
+                                      // )
                                     ],
                                   ),
                                 ),
@@ -642,13 +596,52 @@ class _ContinueSignUpScreenState extends State<ContinueSignUpScreen> {
                     ),
                     const SizedBox(height: 8),
                     SizedBox(
-                      height: 40,
-                      width: width,
-                      child: CustomButtonAuth(
-                        text: "Continue",
-                        onPressed: () async {
-                          await signUp();
-                        },
+                      height: 50,
+                      // width: width,
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        width:
+                            isLoading ? 50 : MediaQuery.of(context).size.width,
+                        child: MaterialButton(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          onPressed: () async {
+                            if (isLoading == false) {
+                              if (mounted) {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                              }
+                              await signUp();
+                            }
+                          },
+                          // splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(80.0),
+                            side: const BorderSide(
+                              color: AppColors.kBackground,
+                            ),
+                          ),
+                          elevation: 0,
+                          color: isLoading
+                              ? Colors.transparent
+                              : AppColors.kPrimaryColor,
+                          child: isLoading
+                              ? const CircularProgressIndicator(
+                                  color: AppColors.kPrimaryColor,
+                                )
+                              : Text(
+                                  "Sign up",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        fontFamily: alexandria,
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                      ),
+                                ),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 8),

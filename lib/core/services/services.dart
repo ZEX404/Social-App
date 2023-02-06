@@ -2,11 +2,9 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:ecommerce_app/core/constants/imageassets.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ecommerce_app/core/constants/constants.dart';
 
 bool isInternetAccess = false;
 String? alexandria;
@@ -18,7 +16,6 @@ class MyServices extends GetxService {
     return this;
   }
 }
-
 
 String quoteAuthor = "";
 String quoteText = "";
@@ -41,7 +38,7 @@ initialServices() async {
     quoteAuthor = randomQuote.values.first["author"];
     quoteText = randomQuote.values.first["quote"];
     //
-    alexandria = GoogleFonts.alexandria().fontFamily;
+    alexandria = 'alexandria';
     //
     ImageLink.onBoardingImage1;
     ImageLink.onBoardingImage2;
@@ -52,7 +49,6 @@ initialServices() async {
     // print("Downloaded recsources successfully");
   } else {
     isInternetAccess = false;
-    alexandria = nunito;
     //
     var quotes = offlineQuotes;
     var random = Random();

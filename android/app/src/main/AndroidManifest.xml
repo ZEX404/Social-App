@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zexdev.social">
+    package="com.zex.istudy">
     <uses-permission android:name="android.permission.INTERNET"/>
     <queries>
         <intent>
@@ -9,7 +9,7 @@
         </intent>
     </queries>
    <application
-        android:label="Social App"
+        android:label="IStudy"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

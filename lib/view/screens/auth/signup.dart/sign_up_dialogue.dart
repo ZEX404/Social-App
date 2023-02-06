@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-import 'package:ecommerce_app/view/widgets/auth/signup.dart/sign_up_form.dart'
+import 'package:ecommerce_app/view/screens/auth/signup.dart/sign_up_form.dart'
     show SignUpForm;
 import 'package:flutter/material.dart'
     show
@@ -31,8 +31,8 @@ import 'package:flutter/material.dart'
         showGeneralDialog;
 import '../../../../core/constants/colors.dart' show AppColors;
 import '../../../../core/services/services.dart' show alexandria;
-import '../../../screens/onboarding.dart' show isSignUpDialogueShown;
-import '../../onboarding/slider.dart';
+import '../../onboarding.dart' show isSignUpDialogueShown;
+import '../../../widgets/onboarding/slider.dart';
 
 Future<Object?> customSignUpDialogue(BuildContext context) {
   return showGeneralDialog(

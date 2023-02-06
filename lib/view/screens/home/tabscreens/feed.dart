@@ -3,7 +3,6 @@ import 'package:ecommerce_app/data/datasource/static/data.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
 import '../../../../core/constants/colors.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
@@ -64,10 +63,11 @@ class FeedScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
+                        children: const [
                           Text(
                             "What's on your mind?",
-                            style: GoogleFonts.roboto(
+                            style: TextStyle(
+                              fontFamily: 'intr',
                               color: Colors.black54,
                               fontSize: 14,
                             ),
@@ -125,7 +125,8 @@ class FeedScreen extends StatelessWidget {
   }
 
   Widget postCard({required int index}) {
-    final textStyle = GoogleFonts.roboto(
+    const textStyle = TextStyle(
+      fontFamily: 'intr',
       color: AppColors.kTextColor,
       fontWeight: FontWeight.bold,
       fontSize: 18,
@@ -172,7 +173,8 @@ class FeedScreen extends StatelessWidget {
                               Text(
                                 Data.dataList[index].userName,
                                 textAlign: TextAlign.center,
-                                style: GoogleFonts.nunito(
+                                style: const TextStyle(
+                                  fontFamily: 'nunito',
                                     color: Colors.black,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 16),
@@ -180,7 +182,8 @@ class FeedScreen extends StatelessWidget {
                               Text(
                                 Data.dataList[index].hour,
                                 textAlign: TextAlign.center,
-                                style: GoogleFonts.nunito(
+                                style: TextStyle(
+                                  fontFamily: 'nunito',
                                   color: Colors.grey[700],
                                   fontWeight: FontWeight.w600,
                                   fontSize: 12,
@@ -223,7 +226,8 @@ class FeedScreen extends StatelessWidget {
                           textAlign: TextAlign.start,
                           lessStyle: textStyle,
                           moreStyle: textStyle,
-                          style: GoogleFonts.roboto(
+                          style: const TextStyle(
+                            fontFamily: 'intr',
                             color: Colors.black,
                             fontSize: 20,
                           ),
@@ -247,7 +251,8 @@ class FeedScreen extends StatelessWidget {
                                 textAlign: TextAlign.start,
                                 lessStyle: textStyle.copyWith(fontSize: 14),
                                 moreStyle: textStyle.copyWith(fontSize: 14),
-                                style: GoogleFonts.roboto(
+                                style: const TextStyle(
+                                  fontFamily: 'intr',
                                   color: Colors.black,
                                   fontSize: 15,
                                 ),
@@ -337,10 +342,11 @@ class FeedScreen extends StatelessWidget {
                                     textColor: AppColors.kPrimaryColor,
                                     fontSize: 16.0);
                               },
-                              child: Text(
+                              child: const Text(
                                 "949",
                                 textAlign: TextAlign.center,
-                                style: GoogleFonts.nunito(
+                                style: TextStyle(
+                                  fontFamily: 'nunito',
                                   color: Colors.black54,
                                   fontSize: 12,
                                 ),
@@ -367,20 +373,22 @@ class FeedScreen extends StatelessWidget {
                                           textColor: AppColors.kPrimaryColor,
                                           fontSize: 16.0);
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       "200 comments",
                                       textAlign: TextAlign.center,
-                                      style: GoogleFonts.nunito(
+                                      style: TextStyle(
+                                        fontFamily: 'nunito',
                                         color: Colors.black54,
                                         fontSize: 12,
                                       ),
                                     ),
                                   ),
                                   const SizedBox(width: 5),
-                                  Text(
+                                  const Text(
                                     "•",
                                     textAlign: TextAlign.center,
-                                    style: GoogleFonts.nunito(
+                                    style: TextStyle(
+                                      fontFamily: 'nunito',
                                       color: Colors.black54,
                                       fontSize: 10,
                                     ),
@@ -398,10 +406,11 @@ class FeedScreen extends StatelessWidget {
                                           textColor: AppColors.kPrimaryColor,
                                           fontSize: 16.0);
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       "29 shares",
                                       textAlign: TextAlign.center,
-                                      style: GoogleFonts.nunito(
+                                      style: TextStyle(
+                                        fontFamily: 'nunito',
                                         color: Colors.black54,
                                         fontSize: 12,
                                       ),
@@ -464,10 +473,11 @@ class FeedScreen extends StatelessWidget {
                                   size: 20,
                                 ),
                                 const SizedBox(width: 5),
-                                Text(
+                                const Text(
                                   "Like",
                                   textAlign: TextAlign.center,
-                                  style: GoogleFonts.nunito(
+                                  style: TextStyle(
+                                    fontFamily: 'nunito',
                                     color: Colors.black54,
                                     fontSize: 12,
                                   ),
@@ -514,10 +524,11 @@ class FeedScreen extends StatelessWidget {
                                   color: Colors.blue[700],
                                 ),
                                 const SizedBox(width: 5),
-                                Text(
+                                const Text(
                                   "Comment",
                                   textAlign: TextAlign.center,
-                                  style: GoogleFonts.nunito(
+                                  style: TextStyle(
+                                    fontFamily: 'nunito',
                                     color: Colors.black54,
                                     fontSize: 12,
                                   ),
@@ -564,10 +575,11 @@ class FeedScreen extends StatelessWidget {
                                   color: Colors.blue[700],
                                 ),
                                 const SizedBox(width: 5),
-                                Text(
+                                const Text(
                                   "Share",
                                   textAlign: TextAlign.center,
-                                  style: GoogleFonts.nunito(
+                                  style: TextStyle(
+                                    fontFamily: 'nunito',
                                     color: Colors.black54,
                                     fontSize: 12,
                                   ),
@@ -632,14 +644,15 @@ class FeedScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Expanded(
+                        const Expanded(
                           child: Align(
                             alignment: Alignment.center,
                             child: SizedBox(
                               child: Text(
                                 "Create story",
                                 textAlign: TextAlign.center,
-                                style: GoogleFonts.nunito(
+                                style: TextStyle(
+                                  fontFamily: 'nunito',
                                   color: AppColors.kTextColor,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -742,7 +755,8 @@ class FeedScreen extends StatelessWidget {
                       bottom: 8,
                       child: Text(
                         Data.dataList[index].userName,
-                        style: GoogleFonts.roboto(
+                        style: const TextStyle(
+                          fontFamily: 'intr',
                           color: Colors.white,
                           fontWeight: FontWeight.w500,
                           fontSize: 14,

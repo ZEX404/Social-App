@@ -1,11 +1,11 @@
 // ignore_for_file: file_names
 
-import 'package:ecommerce_app/view/widgets/auth/signup.dart/SignUpDialogue.dart';
+import 'package:ecommerce_app/view/screens/auth/signup.dart/sign_up_dialogue.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/services/services.dart';
-import '../../../screens/onboarding.dart';
-import '../../onboarding/slider.dart';
+import '../../onboarding.dart';
+import '../../../widgets/onboarding/slider.dart';
 import 'sign_in_form.dart';
 
 bool isShowLoading = false;
@@ -70,7 +70,7 @@ Future<Object?> customSignInDialogue(BuildContext context) {
                           padding: EdgeInsets.only(
                               top: height / 60, bottom: height / 80),
                           child: Text(
-                            "Insert tour details to sign in",
+                            "Hi there! Enter your details to login",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: alexandria,

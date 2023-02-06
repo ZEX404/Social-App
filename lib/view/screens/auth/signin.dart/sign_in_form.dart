@@ -9,7 +9,7 @@ import '../../../../core/constants/routes.dart';
 import '../../../../core/functions/validinput.dart';
 import '../../../../core/services/services.dart';
 import '../../../../main.dart';
-import '../customtextform.dart';
+import '../../../widgets/auth/customtextform.dart';
 import 'signIndialogue.dart';
 
 FToast fToast = FToast();

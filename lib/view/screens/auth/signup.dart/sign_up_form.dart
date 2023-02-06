@@ -1,10 +1,10 @@
-import 'package:ecommerce_app/view/screens/auth/continueSignUp.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/functions/validinput.dart';
 import '../../../../core/services/services.dart';
-import '../customtextform.dart';
+import '../../../widgets/auth/customtextform.dart';
+import '../continue_sign_up.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({
@@ -15,14 +15,13 @@ class SignUpForm extends StatefulWidget {
   State<SignUpForm> createState() => _SignUpFormState();
 }
 
-FToast fToast = FToast();
-
 class _SignUpFormState extends State<SignUpForm> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _passwordControllerConfirm = TextEditingController();
   GlobalKey<FormState> formstate = GlobalKey();
 
+  FToast fToast = FToast();
   _showToast(String message) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),

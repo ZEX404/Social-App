@@ -11,7 +11,7 @@ import 'package:ecommerce_app/view/widgets/onboarding/dotcontroller.dart'
     show DotController;
 import 'package:ecommerce_app/view/widgets/onboarding/slider.dart'
     show OnBoardingSlider;
-import 'package:ecommerce_app/view/widgets/auth/signin.dart/signIndialogue.dart';
+import 'package:ecommerce_app/view/screens/auth/signin.dart/signIndialogue.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart'
     show
@@ -204,7 +204,7 @@ class _OnBoardingState extends State<OnBoarding> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
                             Text(
-                              "Social App",
+                              "IStudy",
                               style: TextStyle(
                                 fontSize: 26,
                                 color: AppColors.kTextColor,
@@ -311,17 +311,22 @@ class _OnBoardingState extends State<OnBoarding> {
                           AnimatedBtn(
                             btnAnimationController: _btnAnimationController,
                             press: () {
-                              if (isSignInDialogueShown == false) {
-                                _btnAnimationController.isActive = true;
-                                setState(() {
-                                  isSignInDialogueShown = true;
-                                });
-                                Future.delayed(
-                                  const Duration(milliseconds: 760),
-                                  () {
-                                    customSignInDialogue(context);
-                                  },
-                                );
+                              if (isInternetAccess == true) {
+                                if (isSignInDialogueShown == false) {
+                                  _btnAnimationController.isActive = true;
+                                  setState(() {
+                                    isSignInDialogueShown = true;
+                                  });
+                                  Future.delayed(
+                                    const Duration(milliseconds: 760),
+                                    () {
+                                      customSignInDialogue(context);
+                                    },
+                                  );
+                                }
+                              } else {
+                                // ignore: avoid_print
+                                print("no internet");
                               }
                             },
                           ),

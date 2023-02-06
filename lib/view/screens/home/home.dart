@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -46,14 +45,15 @@ class _HomeScreenState extends State<HomeScreen>
             elevation: 0,
             controller: controller,
             backgroundColor: Colors.white,
-            title: Text(
-              "Social App",
+            title: const Text(
+              "IStudy",
               textAlign: TextAlign.center,
-              style: GoogleFonts.roboto(
+              style: TextStyle(
                 fontSize: 26,
                 color: AppColors.kTextColor,
                 fontWeight: FontWeight.bold,
                 letterSpacing: -1,
+                fontFamily: 'intr',
               ),
             ),
             actions: [
@@ -104,22 +104,24 @@ class _HomeScreenState extends State<HomeScreen>
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                        children: const [
                           Text(
                             "Chats",
-                            style: GoogleFonts.nunito(
+                            style: TextStyle(
+                              fontFamily: 'nunito',
                               color: AppColors.kTextColor,
                               fontSize: 16,
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 5),
+                            padding: EdgeInsets.only(left: 5),
                             child: CircleAvatar(
                               backgroundColor: Colors.red,
                               radius: 10,
                               child: Text(
                                 "3",
-                                style: GoogleFonts.nunito(
+                                style: TextStyle(
+                                  fontFamily: 'nunito',
                                   color: Colors.white,
                                   fontSize: 12,
                                 ),

@@ -1,4 +1,4 @@
-package com.zexdev.social
+package com.zex.istudy
 
 import io.flutter.embedding.android.FlutterActivity
 

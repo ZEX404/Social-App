@@ -141,9 +141,9 @@ flutter:
     - family: poppins
       fonts:
         - asset: assets/fonts/Poppins-Bold.ttf
-  #   - family: welcome
-  #     fonts:
-  #       - asset: assets/fonts/zex/welcome.ttf
+    - family: alexandria
+      fonts:
+        - asset: assets/fonts/Alexandria-Regular.ttf
 
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
